@@ -32,9 +32,9 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} method="POST" action={route('login.store')}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Email" name="email" />
 
                     <TextInput
                         id="email"
@@ -51,7 +51,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="Password" name="password" />
 
                     <TextInput
                         id="password"
@@ -76,7 +76,6 @@ export default function Login({ status, canResetPassword }) {
                         <span className="ml-2 text-sm text-gray-600">Remember me</span>
                     </label>
                 </div>
-
                 <div className="flex items-center justify-end mt-4">
                     {canResetPassword && (
                         <Link
@@ -87,7 +86,7 @@ export default function Login({ status, canResetPassword }) {
                         </Link>
                     )}
 
-                    <PrimaryButton className="ml-4" disabled={processing}>
+                    <PrimaryButton className="ml-4" type="submit" processing={processing}>
                         Log in
                     </PrimaryButton>
                 </div>

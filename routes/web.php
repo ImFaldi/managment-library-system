@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\API\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,18 +17,8 @@ use App\Http\Controllers\API\BookController;
 |
 */
 
-Route::get('/', function () { 
-    return Inertia::render(
-        'Homepage',
-        [
-            'title' => 'Books',
-            'description' => 'This is the books page of the website',
-        ]
-    );
-});
 
-
-Route::get('/welcome', function () {
+Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -36,6 +26,8 @@ Route::get('/welcome', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::post('/login-store', [AuthController::class, 'login'])->name('login.store');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

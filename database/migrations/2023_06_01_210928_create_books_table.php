@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('portofolios', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
-            $table->string('link')->nullable();
-            $table->foreignId('category_id')->constrained('categories')
-            ->onDelete('cascade')
+            $table->foreignId('category_id')
+            ->constrained('categories')
             ->onUpdate('cascade')
-            ->nullable();
-            $table->string('client')->nullable();
+            ->onDelete('cascade');
+            $table->foreignId('author_id')
+            ->constrained('authors')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->integer('stock');
+            $table->year('year');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('portofolios');
+        Schema::dropIfExists('books');
     }
 };

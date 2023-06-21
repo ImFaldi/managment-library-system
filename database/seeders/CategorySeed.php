@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Category;
 
 class CategorySeed extends Seeder
 {
@@ -16,15 +16,35 @@ class CategorySeed extends Seeder
         //
 
         Category::create([
-            'name' => 'Web Development',
+            'title' => 'Fantasy',
         ]);
 
         Category::create([
-            'name' => 'Mobile Development',
+            'title' => 'Adventure',
         ]);
 
         Category::create([
-            'name' => 'Desktop Development',
+            'title' => 'Romance',
+        ]);
+
+        Category::create([
+            'title' => 'Mystery',
+        ]);
+
+        Category::create([
+            'title' => 'Horror',
+        ]);
+
+        Category::create([
+            'title' => 'Thriller',
+        ]);
+
+        Category::create([
+            'title' => 'Children',
+        ]);
+
+        Category::create([
+            'title' => 'Poetry',
         ]);
     }
 }

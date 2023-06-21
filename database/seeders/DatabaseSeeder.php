@@ -12,13 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // WithoutModelEvents::class;
         $this->call([
-            UserSeeder::class,
+            AuthorSeed::class,
             CategorySeed::class,
-            AboutMeSeed::class,
-            ResumeSeed::class,
-            PortofolioSeed::class,
-            SkillSeed::class,
+            BookSeed::class,
+            UserSeed::class,
+            BorrowSeed::class,
         ]);
     }
 }

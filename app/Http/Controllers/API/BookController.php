@@ -5,63 +5,83 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $book = Book::all();
+        // Api call to get all books
+        $books = Book::all();
+        return response()->json([
+            'books' => $books,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Api call to create a new book
+        $book = Book::create([
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'author_id' => $request->author_id,
+            'status' => $request->status,
+            'year' => $request->year,
+        ]);
+
+        return response()->json([
+            'message' => 'Book created successfully',
+            'book' => $book,
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        // Api call to get a single book
+        $book = Book::find($id);
+        return response()->json([
+            'book' => $book,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function update(Request $request, $id)
     {
-        //
+        // Api call to update a book
+        $check = Book::find($id);
+        if ($check) {
+            $book = Book::where('id', $id)->update([
+                'title' => $request->title,
+                'category_id' => $request->category_id,
+                'author_id' => $request->author_id,
+                'status' => $request->status,
+                'year' => $request->year,
+            ]);
+            return response()->json([
+                'message' => 'Book updated successfully',
+                'book' => $book,
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Book not found',
+            ]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // Api call to delete a book
+        $check = Book::find($id);
+        if ($check) {
+            $book = Book::where('id', $id)->delete();
+            return response()->json([
+                'message' => 'Book deleted successfully',
+                'book' => $book,
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Book not found',
+            ]);
+        }
     }
 }

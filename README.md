@@ -1,6 +1,6 @@
 # Managment Library System
-
-Ini adalah panduan singkat untuk menggunakan Laravel, sebuah framework PHP populer, dengan React, sebuah library JavaScript untuk membangun antarmuka pengguna yang interaktif.
+![Nama Gambar](path/ke/gambar.png)
+Ini adalah aplikasi manajemen perpustakaan yang dibangun dengan Laravel dan React.
 
 ## Prasyarat
 

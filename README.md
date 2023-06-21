@@ -1,4 +1,4 @@
-# Laravel + React Readme
+# Managment Library System
 
 Ini adalah panduan singkat untuk menggunakan Laravel, sebuah framework PHP populer, dengan React, sebuah library JavaScript untuk membangun antarmuka pengguna yang interaktif.
 
@@ -22,3 +22,28 @@ Berikut adalah langkah-langkah untuk mengatur proyek Laravel + React:
    ```bash
    composer install
    npm install
+    ```
+3. **Buat file .env**: Buat file `.env` dari file `.env.example` dan ubah pengaturan database sesuai dengan mesin pengembangan Anda.
+
+4. **Konfigurasi Aplikasi**: Jalankan perintah berikut untuk menghasilkan kunci aplikasi:
+
+   ```bash
+   php artisan key:generate
+   ```
+5. **Konfigurasi JWT Secret**: Jalankan perintah berikut untuk menghasilkan kunci aplikasi:
+     ```bash
+   php artisan jwt:secret
+   ```
+6. **Jalankan Migrasi**: Jalankan perintah berikut untuk membuat tabel dan mengisi data awal ke dalam database:
+   ```bash
+    php artisan migrate --seed
+    ```
+7. **Jalankan Aplikasi**: Jalankan perintah berikut untuk menjalankan aplikasi:
+    ```bash
+    php artisan serve
+    ```
+8. **Jalankan Aplikasi**: Jalankan perintah berikut untuk menjalankan aplikasi:
+    ```bash
+    npm run watch
+    ```
+9. **Buka Aplikasi**: Buka aplikasi di browser Anda dengan mengunjungi URL berikut: `http://localhost:8000`.

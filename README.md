@@ -1,5 +1,5 @@
 # Managment Library System
-![Nama Gambar](path/ke/gambar.png)
+![Nama Gambar](https://highlandlibrary.org/wp-content/uploads/2020/04/31707-2-scaled.jpg)
 Ini adalah aplikasi manajemen perpustakaan yang dibangun dengan Laravel dan React.
 
 ## Prasyarat

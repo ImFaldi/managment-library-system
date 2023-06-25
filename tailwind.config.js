@@ -8,6 +8,8 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}"
     ],
 
     theme: {
@@ -18,7 +20,7 @@ export default {
         },
     },
 
-    plugins: [ require('daisyui') ],
+    plugins: [require('daisyui'),forms],
 
     daisyui: {
         themes: ["light", "dark", "cupcake"], // set themes here
@@ -28,5 +30,5 @@ export default {
         rtl: false, // rotate style direction from left-to-right to right-to-left. You also need to add dir="rtl" to your html tag and install `tailwindcss-flip` plugin for Tailwind CSS.
         prefix: "", // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
         logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
-      },
+    },
 };

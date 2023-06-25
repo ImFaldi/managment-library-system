@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 function Table({ user }) {
 
     return (
-        <div className="card bg-base-100 shadow-xl h-auto">
+        <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}

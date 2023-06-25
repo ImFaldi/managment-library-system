@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 function Sidebar() {
 
     return (
-        <div className="container-fluid px-5">
+        <div className="container-fluid px-5 pb-5">
             <div className="card w-min bg-base-100 shadow-xl" style={{ height: 'calc(100vh - 2rem)' }}>
                 <ul className="menu bg-base-100 rounded-box">
                     <li>

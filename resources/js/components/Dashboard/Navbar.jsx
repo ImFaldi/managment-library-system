@@ -17,7 +17,7 @@ function Navbar({ user }) {
                                     <summary>
                                         {user.name}
                                     </summary>
-                                    <ul className="p-2 bg-base-100">
+                                    <ul className="p-2 bg-base-100 z-50 rounded-box shadow-xl">
                                         <li><Link href={route('logout')} method="post" as="button">Logout</Link></li>
                                         <li><Link href={route('profile.edit')} method="get" as="button">Profile</Link></li>
                                     </ul>

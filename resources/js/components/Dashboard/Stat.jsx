@@ -1,7 +1,7 @@
 
 function Stat(props) {
     return (
-        <div className="stats shadow">
+        <div className="stats shadow-md">
 
             <div className="stat">
                 <div className="stat-figure text-secondary">

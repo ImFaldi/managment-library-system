@@ -3,13 +3,27 @@ import { Link } from '@inertiajs/react';
 function Navbar({ user }) {
 
     return (
-        <div className="container-fluid mx-auto p-5 w-full">
-            <div className="card bg-base-100 shadow-xl">
+        <div className="container-fluid mx-auto w-full pb-3">
+            <div className="card bg-base-100 shadow-md">
                 <div className="navbar bg-base-100 rounded-box">
-                    <div className="flex-1">
-                        <a className="btn btn-ghost normal-case text-xl">Library Managment</a>
+                    <div className="flex flex-wrap">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div className="col-start-1 col-end-4">
+                                <a className="btn btn-ghost normal-case text-xl">Library Managment</a>
+                            </div>
+                            <div className="col-start-1 col-end-4 mx-5" style={{ marginTop: '-10%' }}>
+                                <div className="text-sm breadcrumbs">
+                                    <ul>
+                                        <li><a>Home</a></li>
+                                        <li><a>Documents</a></li>
+                                        <li>Add Document</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div className="flex-none">
+                    <div className="flex-1 justify-end">
                         <ul className="menu menu-horizontal px-1">
                             <li><a>Link</a></li>
                             <li>

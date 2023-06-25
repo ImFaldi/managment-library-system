@@ -1,6 +1,6 @@
 # Management Library System menggunakan Laravel dan React
 
-(https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/4409931/910/607/m1/fpnw/wm0/triangle_library_book_knowledge_logo_template-01-.png?1525588794&s=9dcba67e3abe7e707e87bc2322322385)
+![Deskripsi Gambar](https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/4409931/910/607/m1/fpnw/wm0/triangle_library_book_knowledge_logo_template-01-.png?1525588794&s=9dcba67e3abe7e707e87bc2322322385)
 
 Ini adalah README untuk Management Library System, sebuah aplikasi berbasis web yang dibangun dengan menggunakan Laravel Breeze sebagai framework backend dan React sebagai framework frontend. Aplikasi ini bertujuan untuk mengelola sistem perpustakaan dengan fitur-fitur seperti pendaftaran anggota, pencarian buku, peminjaman dan pengembalian buku, dan pengelolaan stok buku.
 

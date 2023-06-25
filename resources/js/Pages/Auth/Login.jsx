@@ -5,8 +5,6 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import Radio from '@/Components/Form/Radio';
-import Select from '@/Components/Form/Select';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }) {
@@ -34,9 +32,9 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit} method="POST" action={route('login.store')}>
+            <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" name="email" />
+                    <InputLabel htmlFor="email" value="Email" />
 
                     <TextInput
                         id="email"
@@ -53,7 +51,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" name="password" />
+                    <InputLabel htmlFor="password" value="Password" />
 
                     <TextInput
                         id="password"
@@ -63,48 +61,6 @@ export default function Login({ status, canResetPassword }) {
                         className="mt-1 block w-full"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="Radio" value="Radio" name="radio" />
-
-                    <Radio
-                        id="radio"
-                        type="radio"
-                        name="radio"
-                        value={data.radio}
-                        className="mt-1"
-                        autoComplete="current-radio"
-                        onChange={(e) => setData('radio', e.target.value)}
-                    />
-
-                    <Radio
-                        id="radio"
-                        type="radio"
-                        name="radio"
-                        value={data.radio}
-                        className="mt-1 mx-4"
-                        autoComplete="current-radio"
-                        onChange={(e) => setData('radio', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="Select" value="Select" name="select" />
-
-                    <Select
-                        id="select"
-                        type="select"
-                        name="select"
-                        value={data.select}
-                        className="mt-1"
-                        autoComplete="current-select"
-                        onChange={(e) => setData('select', e.target.value)}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -120,6 +76,7 @@ export default function Login({ status, canResetPassword }) {
                         <span className="ml-2 text-sm text-gray-600">Remember me</span>
                     </label>
                 </div>
+
                 <div className="flex items-center justify-end mt-4">
                     {canResetPassword && (
                         <Link
@@ -130,7 +87,7 @@ export default function Login({ status, canResetPassword }) {
                         </Link>
                     )}
 
-                    <PrimaryButton className="ml-4" type="submit" processing={processing}>
+                    <PrimaryButton className="ml-4" disabled={processing}>
                         Log in
                     </PrimaryButton>
                 </div>

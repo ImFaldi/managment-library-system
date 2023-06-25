@@ -25,7 +25,6 @@ function Navbar({ user }) {
                     </div>
                     <div className="flex-1 justify-end">
                         <ul className="menu menu-horizontal px-1">
-                            <li><a>Link</a></li>
                             <li>
                                 <details>
                                     <summary>

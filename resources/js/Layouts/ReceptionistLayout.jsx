@@ -14,7 +14,7 @@ export default function Authenticated({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 0, 255, 0.4) 30%, rgba(128, 128, 128, 0.1) 30%)' }}>
+        <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 255, 0, 0.4) 30%, rgba(128, 128, 128, 0.1) 30%)' }}>
             <div class="flex flex-row">
                 <Sidebar />
                 <div className="flex flex-col w-full border-opacity-50">
@@ -23,7 +23,6 @@ export default function Authenticated({ user, children }) {
                     <div className="grid mt-5 pr-5"><Table /></div>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,7 +28,17 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    //mengambil data user
+
+    $user = Auth::user();
+    
+    if($user->role == "admin"){
+        return Inertia::render('Admin/Dashboard');
+    }else if($user->role == "receptionist"){
+        return Inertia::render('Receptionist/Dashboard');
+    }else{
+        return Inertia::render('Welcome');
+    }
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

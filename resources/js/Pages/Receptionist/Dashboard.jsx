@@ -1,13 +1,12 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Receptionist from '@/Layouts/ReceptionistLayout';
 import { Head } from '@inertiajs/react';
-import Sidebar from '@/components/Dashboard/Sidebar';
 export default function Dashboard({ auth }) {
     return (
         
-        <AuthenticatedLayout
+        <Receptionist
             user={auth.user}
         >
-            <Head title="Dashboard" />
+            <Head title="Receptionist Dashboard" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -15,6 +14,6 @@ export default function Dashboard({ auth }) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </Receptionist>
     );
 }

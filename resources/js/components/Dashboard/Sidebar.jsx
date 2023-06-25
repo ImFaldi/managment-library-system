@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useRef } from 'react';
+import { Link } from '@inertiajs/react';
 
 export default forwardRef(function Sidebar({ className = '', isFocused = false, ...props }, ref) {
     const input = ref ? ref : useRef();
@@ -21,7 +22,7 @@ export default forwardRef(function Sidebar({ className = '', isFocused = false, 
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
                     {/* Sidebar content here */}
-                    <li><a>Dashboard</a></li>
+                    <li><Link href={route('dashboard')} active={route().current('dashboard')}>Dashboard</Link></li>
                     <li><a>Table</a></li>
                     <li><a>Profile</a></li>
                 </ul>

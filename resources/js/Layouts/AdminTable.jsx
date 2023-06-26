@@ -6,7 +6,6 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import Sidebar from '@/components/Dashboard/Sidebar';
 import Navbar from '@/components/Dashboard/Navbar';
-import Member from '@/components/TableCRUD/Member';
 
 
 export default function Authenticated({ user }) {
@@ -15,8 +14,12 @@ export default function Authenticated({ user }) {
             <div class="flex flex-row">
                 <Sidebar />
                 <div className="flex flex-col w-full border-opacity-50">
-                    <div className="grid mt-2 pr-5"><Navbar user={user} /></div>
-                    <div className="grid mt-2 pr-5"><Member/></div>
+                    <div className="grid mt-2 pr-5">
+                        <Navbar
+                            user={user}
+                        /></div>
+                    <div class="flex">
+                    </div>
                 </div>
             </div>
         </div>

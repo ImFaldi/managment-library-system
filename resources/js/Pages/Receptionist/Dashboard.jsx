@@ -1,6 +1,8 @@
 import Receptionist from '@/Layouts/ReceptionistLayout';
 import { Head } from '@inertiajs/react';
+import axios from 'axios';
 export default function Dashboard({ auth }) {
+
     return (
         
         <Receptionist

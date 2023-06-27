@@ -38,11 +38,11 @@ export default function Authenticated({ user }) {
                                     'Phone',
                                     'Action']}
                                 rows={data.user ? data.user.map((user) => ({
-                                    name : user.name,
-                                    email : user.email,
-                                    role : user.role,
-                                    phone : user.phone,
-                                    action : 'action'
+                                    name: user.name,
+                                    email: user.email,
+                                    role: user.role,
+                                    phone: user.phone,
+                                    action: 'action'
                                 })) : []}
                             />
                         </div>

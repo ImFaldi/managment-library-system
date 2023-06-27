@@ -16,7 +16,7 @@ class BorrowSeed extends Seeder
         //
 
         Borrow::create([
-            'user_id' => 1,
+            'user_id' => 3,
             'book_id' => 1,
             'borrow_date' => '2021-06-01',
             'return_date' => '2021-06-08',
@@ -25,7 +25,7 @@ class BorrowSeed extends Seeder
         ]);
 
         Borrow::create([
-            'user_id' => 1,
+            'user_id' => 3,
             'book_id' => 1,
             'borrow_date' => date('Y-m-d'),
             'return_date' => date('Y-m-d', strtotime('+7 day', strtotime(date('Y-m-d')))),
@@ -34,7 +34,7 @@ class BorrowSeed extends Seeder
         ]);
 
         Borrow::create([
-            'user_id' => 1,
+            'user_id' => 3,
             'book_id' => 1,
             'borrow_date' => date('Y-m-d', strtotime('-1 day', strtotime(date('Y-m-d')))),
             'return_date' => date('Y-m-d', strtotime('+7 day', strtotime(date('Y-m-d')))),
@@ -43,7 +43,7 @@ class BorrowSeed extends Seeder
         ]);
 
         Borrow::create([
-            'user_id' => 1,
+            'user_id' => 3,
             'book_id' => 3,
             'borrow_date' => date('Y-m-d', strtotime('-2 day', strtotime(date('Y-m-d')))),
             'return_date' => date('Y-m-d', strtotime('+7 day', strtotime(date('Y-m-d')))),

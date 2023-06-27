@@ -1,18 +1,11 @@
 import { Link } from '@inertiajs/react';
 
-function Table({ title, columns, rows }) {
+function Book({ title, columns, rows }) {
 
     return (
         <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
             <div className="card-body">
-                <div className="row">
-                        <h2 className="card-title text-center">{title}</h2>
-                    <div>
-                        <div className="text-end">
-                            <button className="btn btn-primary btn-sm">Add</button>
-                        </div>
-                    </div>
-                </div>
+                <h2 className="card-title">{title}</h2>
                 <div className="divider"></div>
                 <div className="overflow-x-auto">
                     <table className="table">
@@ -40,15 +33,16 @@ function Table({ title, columns, rows }) {
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div>
-                                                <div className="font-bold">{row.name}</div>
-                                                <div className="text-sm opacity-50">{row.email}</div>
+                                                <div className="font-bold">{row.title}</div>
+                                                <div className="text-sm opacity-50">{row.category.title}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="text-sm">
-                                        <span className="badge badge-success badge-md text-white">{row.role}</span>
+                                        <span className="badge badge-success badge-md text-white">{row.author.name}</span>
                                     </td>
-                                    <td>{row.phone}</td>
+                                    <td>{row.stock}</td>
+                                    <td>{row.year}</td>
                                     <td><button className="btn btn-info btn-sm text-white" onClick={() => window.my_modal_3.showModal()}>Detail</button></td>
                                 </tr>
                             ))}
@@ -67,4 +61,4 @@ function Table({ title, columns, rows }) {
     );
 }
 
-export default Table;  
+export default Book;  

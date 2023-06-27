@@ -2,37 +2,44 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '@/components/Dashboard/Sidebar';
 import Navbar from '@/components/Dashboard/Navbar';
-import Table from '@/components/Dashboard/Table';
-import Book from '@/components/Tables/Book';
+import Table from '@/components/Tables/TablesBook';
 
 export default function Authenticated({ user }) {
-  const [userData, setUserData] = useState([]);
-  const [bookData, setBookData] = useState([]);
+  const [dataBook, setDataBook] = useState([]);
+  const [dataCategory, setDataCategory] = useState([]);
+  const [dataAuthor, setDataAuthor] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('/api/User')
+    axios.get('/api/Book')
       .then((res) => {
-        const filteredUsers = res.data.user.filter((user) => user.role === 'member');
-        setUserData(filteredUsers);
+        setDataBook(res.data);
       })
       .catch((err) => {
         console.log(err);
-      });
-
-    axios
-      .get('/api/Book')
-      .then((res) => {
-        setBookData(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
   }, []);
-  
 
-  console.log(userData);
-  console.log(bookData);
+  useEffect(() => {
+    axios.get('/api/Category')
+      .then((res) => {
+        setDataCategory(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+  useEffect(() => {
+    axios.get('/api/Author')
+      .then((res) => {
+        setDataAuthor(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+  console.log(dataBook, dataCategory, dataAuthor);
 
   return (
     <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 0, 255, 0.4) 35%, rgba(128, 128, 128, 0.1) 35%)' }}>
@@ -43,40 +50,31 @@ export default function Authenticated({ user }) {
           <div className="flex">
             <div className="mt-5 pr-5 w-full">
               <Table
-                title="Member Table"
-                columns={[
-                  'Name',
-                  'Role',
-                  'Phone',
-                  'Action'
-                ]}
-                rows={userData.map((user) => ({
-                  name: user.name,
-                  email: user.email,
-                  role: user.role,
-                  phone: user.phone,
-                  action: 'action'
-                }))}
-              />
-            </div>
-            <div className="mt-5 pr-5 w-full">
-              <Book
-                title ="Book Table"
+                title="Book Table"
                 columns={[
                   'Title',
                   'Author',
                   'Stock',
                   'Year',
-                  'Action'
-                ]}
-                rows={bookData.map((book) => ({
-                    title: book.title,
-                    category: book.category.title,
-                    author: book.author.name,
-                    stock: book.stock,
-                    year: book.year,
-                    action: 'action'
-                  }))}
+                  'Action']}
+                rows={dataBook.books ? dataBook.books.map((book) => (
+                  {
+                  title: book.title,
+                  category: book.category_id ? dataCategory.categories ? dataCategory.categories.map((category) => {
+                    if (category.id == book.category_id) {
+                      return category.title;
+                    }
+                  }) : [] : [],
+                  author: book.author_id ? dataAuthor.authors ? dataAuthor.authors.map((author) => {
+                    if (author.id == book.author_id) {
+                      return author.name;
+                    }
+                  }) : [] : [],
+                  stock: book.stock,
+                  year: book.year,
+                  action: 'action'
+                })
+                ) : []}
               />
             </div>
           </div>

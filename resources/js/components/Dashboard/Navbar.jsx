@@ -7,7 +7,7 @@ function Navbar({ user }) {
             <div className="card bg-base-100 shadow-md">
                 <div className="navbar bg-base-100 rounded-box">
                     <div className="flex flex-wrap">
-                        <div class="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-3 gap-4">
                             <div className="col-start-1 col-end-4">
                                 <a className="btn btn-ghost normal-case text-xl">Library Managment</a>
                             </div>

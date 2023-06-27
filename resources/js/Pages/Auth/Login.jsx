@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import SecondaryButton from '@/components/SecondaryButton';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -78,20 +79,43 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                    <PrimaryButton className="ml-4" disabled={processing}>
+                    <PrimaryButton className="btn btn-primary btn-block" disabled={processing}>
                         Log in
                     </PrimaryButton>
                 </div>
+
+                <div className="flex items-center mt-4">
+                    <div className="flex w-full">
+                        <div className="flex w-full">
+                            {canResetPassword && (
+                                <Link
+                                    href={route('password.request')}
+                                    className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Forgot your password?
+                                </Link>
+                            )}
+                        </div>
+                        <div className="flex justify-end w-full">
+                            {canResetPassword && (
+                                <Link 
+                                    href={route('password.request')}
+                                    className="text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Reset Password
+                                </Link>
+                            )}</div></div></div>
+
+                <div className="divider">or</div>
+                <div>
+                    <div className="flex items-center justify-end mt-4">
+                        <SecondaryButton className="btn btn-primary btn-block" disabled={processing}>
+                            Create New Account
+                        </SecondaryButton>
+                    </div>
+                </div>
             </form>
         </GuestLayout>
+
     );
 }

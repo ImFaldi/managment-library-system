@@ -10,11 +10,14 @@ function Table({ title, columns, rows }) {
 
         <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
             <div className="card-body">
-                <div className="row">
+                <div className="flex">
+                    <div className="flex w-full">
                         <h2 className="card-title text-center">{title}</h2>
-                    <div>
+                    </div>
+                    <div className="flex w-full justify-end">
                         <div className="text-end">
-                            <button className="btn btn-primary btn-sm">Add</button>
+                            <button className="btn btn-success btn-sm text-white" onClick={() => window.my_modal_add.showModal()}>Add</button>
+
                         </div>
                     </div>
                 </div>
@@ -60,11 +63,14 @@ function Table({ title, columns, rows }) {
                     </table>
                 </div>
             </div>
-            <dialog id="my_modal_3" className="modal">
+            <dialog id="my_modal_add" className="modal modal-bottom sm:modal-middle">
                 <form method="dialog" className="modal-box">
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">Press ESC key or click on ✕ button to close</p>
+                    <h3 className="font-bold text-lg">{title}</h3>
+                    <p className="py-4">Press ESC key or click the button below to close</p>
+                    <div className="modal-action">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-success text-white btn-sm">Create</button>
+                    </div>
                 </form>
             </dialog>
         </div >

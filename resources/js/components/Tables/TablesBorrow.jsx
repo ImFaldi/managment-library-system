@@ -46,16 +46,19 @@ function Book({ title, columns, rows }) {
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div>
-                                                <div className="font-bold">{row.title}</div>
-                                                <div className="text-sm opacity-50">{row.category}</div>
+                                                <div className="font-bold">{row.user}</div>
+                                                <div className="text-sm opacity-50">{row.book}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="text-sm">
-                                        <span className="badge badge-success badge-md text-white">{row.author}</span>
+                                        <span className="badge badge-success badge-md text-white">{row.status}</span>
                                     </td>
-                                    <td>{row.stock}</td>
-                                    <td>{row.year}</td>
+                                    <td>{row.borrow}</td>
+                                    <td>{row.return}</td>
+                                    <td className="text-sm">
+                                        <span className="badge badge-success badge-md text-white">{row.penalty}</span>
+                                    </td>
                                     <td>
                                         <button className="btn btn-info btn-sm text-white" onClick={() => openModal(index)}>Detail</button>
                                         <dialog id="my_modal" className="modal modal-bottom sm:modal-middle">

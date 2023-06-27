@@ -1,4 +1,4 @@
-function Table({ title, columns, rows }) {
+function Book({ title, columns, rows }) {
     const openModal = (index) => {
         window.selectedRowIndex = index;
         const modal = document.getElementById('my_modal');
@@ -7,7 +7,6 @@ function Table({ title, columns, rows }) {
         }
     };
     return (
-
         <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
             <div className="card-body">
                 <div className="flex">
@@ -17,7 +16,6 @@ function Table({ title, columns, rows }) {
                     <div className="flex w-full justify-end">
                         <div className="text-end">
                             <button className="btn btn-success btn-sm text-white" onClick={() => window.my_modal_add.showModal()}>Add</button>
-
                         </div>
                     </div>
                 </div>
@@ -48,17 +46,21 @@ function Table({ title, columns, rows }) {
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div>
-                                                <div className="font-bold">{row.name}</div>
-                                                <div className="text-sm opacity-50">{row.email}</div>
+                                                <div className="font-bold">{row.user}</div>
+                                                <div className="text-sm opacity-50">{row.book}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="text-sm">
-                                        <span className="badge badge-success badge-md text-white">{row.role}</span>
+                                        <span className="badge badge-success badge-md text-white">{row.status}</span>
                                     </td>
-                                    <td>{row.phone}</td>
+                                    <td>{row.borrow}</td>
+                                    <td>{row.return}</td>
+                                    <td className="text-sm">
+                                        <span className="badge badge-success badge-md text-white">{row.penalty}</span>
+                                    </td>
                                     <td>
-                                    <button className="btn btn-info btn-sm text-white" onClick={() => openModal(index)}>Detail</button>
+                                        <button className="btn btn-info btn-sm text-white" onClick={() => openModal(index)}>Detail</button>
                                         <dialog id="my_modal" className="modal modal-bottom sm:modal-middle">
                                             <form method="dialog" className="modal-box">
                                                 <h3 className="font-bold text-lg">{title}</h3>
@@ -76,18 +78,15 @@ function Table({ title, columns, rows }) {
                     </table>
                 </div>
             </div>
-            <dialog id="my_modal_add" className="modal modal-bottom sm:modal-middle">
+            <dialog id="my_modal_3" className="modal">
                 <form method="dialog" className="modal-box">
-                    <h3 className="font-bold text-lg">{title}</h3>
-                    <p className="py-4">Press ESC key or click the button below to close</p>
-                    <div className="modal-action">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-success text-white btn-sm">Create</button>
-                    </div>
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    <h3 className="font-bold text-lg">Hello!</h3>
+                    <p className="py-4">Press ESC key or click on ✕ button to close</p>
                 </form>
             </dialog>
         </div >
     );
 }
 
-export default Table;  
+export default Book;  

@@ -24,7 +24,7 @@ class BookController extends Controller
             'title' => $request->title,
             'category_id' => $request->category_id,
             'author_id' => $request->author_id,
-            'status' => $request->status,
+            'stock' => $request->stock,
             'year' => $request->year,
         ]);
 
@@ -53,7 +53,7 @@ class BookController extends Controller
                 'title' => $request->title,
                 'category_id' => $request->category_id,
                 'author_id' => $request->author_id,
-                'status' => $request->status,
+                'stock' => $request->stock,
                 'year' => $request->year,
             ]);
             return response()->json([

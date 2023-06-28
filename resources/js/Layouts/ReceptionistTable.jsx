@@ -65,8 +65,6 @@ export default function Authenticated({ user }) {
             })
     }, []);
 
-    console.log(dataBook, dataCategory, dataAuthor, BorrowData, userData);
-
     return (
         <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 254, 0, 0.4) 35%, rgba(128, 128, 128, 0.1) 35%)' }}>
             <div className="flex flex-row">
@@ -120,6 +118,8 @@ export default function Authenticated({ user }) {
                                         action: 'action'
                                     })
                                 ) : []}
+                                author={dataAuthor}
+                                category={dataCategory}
                             />
                         </div>
                     </div>

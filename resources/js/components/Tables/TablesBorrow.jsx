@@ -46,7 +46,7 @@ function Book({ title, columns, rows }) {
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div>
-                                                <div className="font-bold">{row.user}</div>
+                                                <div className="font-bold">{row.member}</div>
                                                 <div className="text-sm opacity-50">{row.book}</div>
                                             </div>
                                         </div>

@@ -20,12 +20,6 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-});
-
 //Author
     Route::get('/Author', [AuthorController::class, 'index']);
     Route::post('/Author', [AuthorController::class, 'store']);

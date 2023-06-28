@@ -65,7 +65,7 @@ export default function Authenticated({ user }) {
             })
     }, []);
 
-    console.log(dataBook, dataCategory, dataAuthor, BorrowData);
+    console.log(dataBook, dataCategory, dataAuthor, BorrowData, userData);
 
     return (
         <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 0, 255, 0.4) 35%, rgba(128, 128, 128, 0.1) 35%)' }}>
@@ -136,11 +136,11 @@ export default function Authenticated({ user }) {
                                     'Action']}
                                 rows={BorrowData.borrows ? BorrowData.borrows.map((borrow) => (
                                     {
-                                        member: borrow.user_id ? userData.users ? userData.users.map((user) => {
+                                        member: borrow.user_id ? userData.map((user) => {
                                             if (user.id == borrow.user_id) {
                                                 return user.name;
                                             }
-                                        }) : [] : [],
+                                        }) : [] ,
                                         book: borrow.book_id ? dataBook.books ? dataBook.books.map((book) => {
                                             if (book.id == borrow.book_id) {
                                                 return book.title;

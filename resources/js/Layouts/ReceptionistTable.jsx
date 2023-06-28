@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '@/components/Dashboard/Sidebar';
 import Navbar from '@/components/Dashboard/Navbar';
-import Tables from '@/components/Dashboard/Table';
+import Tables from '@/components/Tables/TablesMember';
 import Table from '@/components/Tables/TablesBook';
 import Borrow from '@/components/Tables/TablesBorrow';
 

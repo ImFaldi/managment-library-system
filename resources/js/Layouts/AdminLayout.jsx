@@ -23,26 +23,6 @@ export default function Authenticated({ user }) {
             })
     }, []);
 
-    useEffect(() => {
-        axios.get('/api/Category')
-            .then((res) => {
-                setDataCategory(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }, []);
-
-    useEffect(() => {
-        axios.get('/api/Author')
-            .then((res) => {
-                setDataAuthor(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }, []);
-
     console.log(data);
     return (
         <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 0, 255, 0.4) 35%, rgba(128, 128, 128, 0.1) 35%)' }}>

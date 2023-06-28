@@ -4,16 +4,40 @@ import Navbar from '@/components/Dashboard/Navbar';
 import Table from '@/components/Dashboard/Table';
 import Stat from '@/components/Dashboard/Stat';
 import Borrow from '@/components/Dashboard/Borrow';
+import Cate from '@/components/Dashboard/Category';
+import Author from '@/components/Dashboard/Author';
 import axios from 'axios';
 
 
 export default function Authenticated({ user }) {
     const [data, setData] = useState([]);
+    const [cate, setDataCategory] = useState([]);
+    const [author, setDataAuthor] = useState([]);
 
     useEffect(() => {
         axios.get('/api/User')
             .then((res) => {
                 setData(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, []);
+
+    useEffect(() => {
+        axios.get('/api/Category')
+            .then((res) => {
+                setDataCategory(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, []);
+
+    useEffect(() => {
+        axios.get('/api/Author')
+            .then((res) => {
+                setDataAuthor(res.data);
             })
             .catch((err) => {
                 console.log(err);
@@ -48,6 +72,39 @@ export default function Authenticated({ user }) {
                             />
                         </div>
                         <div className="mt-5 pr-5 w-full"><Borrow /></div>
+                    </div>
+
+                    <div className="flex">
+                        <div className="mt-5 pr-5 w-full">
+                            <Cate
+                                title="Category Table"
+                                columns={[
+                                    'Title',
+                                    'Action']}
+                                rows={cate.categories ? cate.categories.map((category) => ({
+                                    id: category.id,
+                                    title: category.title,
+                                    action: 'action'
+                                })) : []}
+                            />
+                        </div>
+                        <div className="mt-5 pr-5 w-full">
+                            <Author
+                                title="Category Table"
+                                columns={[
+                                    'Author Name',
+                                    'Email',
+                                    'Phone',
+                                    'Action']}
+                                rows={author.authors ? author.authors.map((author) => ({
+                                    id: author.id,
+                                    name: author.name,
+                                    email: author.email,
+                                    phone: author.phone,
+                                    action: 'action'
+                                })) : []}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

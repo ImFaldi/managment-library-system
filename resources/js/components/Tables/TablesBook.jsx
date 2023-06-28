@@ -14,7 +14,6 @@ function Book({ title, columns, rows }) {
     });
 
     useEffect(() => {
-        // Fetch categories
         axios.get('/api/Category')
             .then(response => {
                 setCategories(response.data);
@@ -22,8 +21,7 @@ function Book({ title, columns, rows }) {
             .catch(error => {
                 console.error('Error fetching categories:', error);
             });
-
-        // Fetch authors
+            
         axios.get('/api/Author')
             .then(response => {
                 setAuthors(response.data);

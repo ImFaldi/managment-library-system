@@ -1,7 +1,10 @@
+import React, { useState } from 'react';
 function Table({ title, columns, rows }) {
+    const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+
     const openModal = (index) => {
-        window.selectedRowIndex = index;
-        const modal = document.getElementById('my_modal');
+        setSelectedRowIndex(index);
+        const modal = document.getElementById(`my_modal_${index}`);
         if (modal) {
             modal.showModal();
         }
@@ -59,13 +62,46 @@ function Table({ title, columns, rows }) {
                                     <td>{row.phone}</td>
                                     <td>
                                     <button className="btn btn-info btn-sm text-white" onClick={() => openModal(index)}>Detail</button>
-                                        <dialog id="my_modal" className="modal modal-bottom sm:modal-middle">
+                                        <dialog id={`my_modal_${index}`} className="modal modal-bottom sm:modal-middle">
                                             <form method="dialog" className="modal-box">
-                                                <h3 className="font-bold text-lg">{title}</h3>
-                                                <p className="py-4">Press ESC key or click the button below to close</p>
+                                                <h3 className="font-bold text-lg">{title} Detail</h3>
+                                                <label className="label"> Name</label>
+                                                <input 
+                                                type="text" 
+                                                placeholder="Type here" 
+                                                className="input w-full input-bordered border-gray-400" 
+                                                value={row.name} 
+                                                readOnly
+                                                
+                                                />
+                                                <label className="label"> Email</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Type here"
+                                                    className="input w-full input-bordered border-gray-400"
+                                                    value={row.email}
+                                                    readOnly
+                                                />
+
+                                                <label className="label"> Role</label>
+                                                <select className="select select-bordered w-full border-gray-400" value={row.role} readOnly>
+                                                    <option value="admin">Admin</option>
+                                                    <option value="receptionist">Receptionist</option>
+                                                    <option value="member">Member</option>
+                                                </select>
+
+                                                <label className="label"> Phone</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Type here"
+                                                    className="input w-full input-bordered border-gray-400"
+                                                    value={row.phone}
+                                                    readOnly
+                                                />
                                                 <div className="modal-action">
                                                     {/* if there is a button in form, it will close the modal */}
-                                                    <button className="btn btn-success text-white btn-sm">Create</button>
+                                                    <button className="btn btn-success text-white btn-sm">Update</button>
+                                                    <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_${index}`].close()}>Delete</button> 
                                                 </div>
                                             </form>
                                         </dialog>

@@ -7,8 +7,8 @@ export default function Guest({ children }) {
             <div>
             </div>
             <div className="card lg:card-side bg-base-100 shadow-xl">
-                <figure><img className=" w-80 h-full" src="https://i.seadn.io/gcs/files/1abdc91888c2c328f58fa623b56a7593.png?auto=format&dpr=1&w=1000" alt="Album" /></figure>
-                <div className="card-body w-80">
+                <figure><img className=" w-96 h-full" src="https://i.pinimg.com/564x/f7/a3/d1/f7a3d1a4fb4110c05fea6721c18843ff.jpg" alt="Album" /></figure>
+                <div className="card-body w-96">
                 {children}
                     
                 </div>

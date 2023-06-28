@@ -57,7 +57,7 @@ function Table({ title, columns, rows }) {
                                     <td>{row.phone}</td>
                                     <td>
                                         <button className="btn btn-info btn-sm text-white" onClick={() => window[`my_modal_${index}`].showModal()}>Detail</button>
-                                        <dialog id={`my_modal_${index}`} className="modal modal-bottom sm:modal-middle">
+                                        {/* <dialog id={`my_modal_${index}`} className="modal modal-bottom sm:modal-middle">
                                             <form method="dialog" className="modal-box">
                                                 <h3 className="font-bold text-lg">{title} Detail</h3>
                                                 <label className="label"> Name</label>
@@ -94,7 +94,6 @@ function Table({ title, columns, rows }) {
                                                     readOnly
                                                 />
                                                 <div className="modal-action">
-                                                    {/* if there is a button in form, it will close the modal */}
                                                     <button className="btn btn-success text-white btn-sm">Update</button>
                                                     <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delete_${index}`].showModal()}>Delete</button>
                                                 </div>
@@ -103,14 +102,13 @@ function Table({ title, columns, rows }) {
                                                         <h3 className="font-bold text-lg text-center">Apakah anda yakin?</h3>
                                                         <p className="py-4">ingin menghapus data ini?</p>
                                                         <div className="modal-action">
-                                                            {/* if there is a button in form, it will close the modal */}
                                                             <button className="btn btn-success text-white btn-sm" onClick={() => window[`my_modal_${index}`].close()}>Delete</button>
                                                             <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delete_${index}`].close()}>Cancel</button>
                                                         </div>
                                                     </form>
                                                 </dialog>
                                             </form>
-                                        </dialog>
+                                        </dialog> */}
                                     </td>
                                 </tr>
                             ))}

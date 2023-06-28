@@ -38,6 +38,7 @@ export default function Authenticated({ user }) {
                                     'Phone',
                                     'Action']}
                                 rows={data.user ? data.user.map((user) => ({
+                                    id: user.id,
                                     name: user.name,
                                     email: user.email,
                                     role: user.role,

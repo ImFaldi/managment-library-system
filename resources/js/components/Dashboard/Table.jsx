@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 function Table({ title, columns, rows }) {
+    const [notification, setNotification] = useState(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -20,6 +21,28 @@ function Table({ title, columns, rows }) {
             .then((res) => {
                 console.log(res);
                 console.log(res.data);
+                setNotification('Data berhasil dihapus');
+                setTimeout(() => {
+                    setNotification(null);
+                    window.location.reload();
+                }, 2000);
+            });
+    }
+
+    const handleDelete = (index) => {
+        axios.delete(`/api/User/${index}`)
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+
+                setNotification('Data berhasil dihapus');
+                setTimeout(() => {
+                    setNotification(null);
+                    window.location.reload();
+                }, 2000);
+            })
+            .catch((err) => {
+                console.log(err);
             });
     }
     return (
@@ -119,10 +142,12 @@ function Table({ title, columns, rows }) {
                                                 <dialog id={`my_modal_delete_${index}`} className="modal">
                                                     <form method="dialog" className="modal-box">
                                                         <h3 className="font-bold text-lg text-center">Apakah anda yakin?</h3>
-                                                        <p className="py-4">ingin menghapus data ini?</p>
+                                                        <p className="py-4">Anda serius ingin menghapus data ini? Data yang sudah dihapus tidak dapat dikembalikan.</p>
+                                                        <p className="py-4">Press ESC key or click the button below to close</p>
+                                                        <p className="py-4">{notification}</p>
                                                         <div className="modal-action">
                                                             {/* if there is a button in form, it will close the modal */}
-                                                            <button className="btn btn-success text-white btn-sm" onClick={() => window[`my_modal_${index}`].close()}>Delete</button>
+                                                            <button className="btn btn-success text-white btn-sm" onClick={() => handleDelete(row.id)}>Delete</button>
                                                             <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delete_${index}`].close()}>Cancel</button>
                                                         </div>
                                                     </form>
@@ -173,7 +198,7 @@ function Table({ title, columns, rows }) {
                     <select
                         className="select select-bordered w-full border-gray-400"
                         value={formData.role}
-                        onChange={handleChange}
+                        onChange={  handleChange}
                         name="role">
                         <option value="admin">Admin</option>
                         <option value="receptionist">Receptionist</option>

@@ -15,7 +15,7 @@ function Book({ title, columns, rows }) {
                     </div>
                     <div className="flex w-full justify-end">
                         <div className="text-end">
-                            <button className="btn btn-success btn-sm text-white" onClick={() => window.my_modal_add.showModal()}>Add</button>
+                            <button className="btn btn-success btn-sm text-white" onClick={() => window.my_modal_book.showModal()}>Add</button>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ function Book({ title, columns, rows }) {
                     </table>
                 </div>
             </div>
-            <dialog id="my_modal_3" className="modal">
+            <dialog id="my_modal_book" className="modal">
                 <form method="dialog" className="modal-box">
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     <h3 className="font-bold text-lg">Hello!</h3>

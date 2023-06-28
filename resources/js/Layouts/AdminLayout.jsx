@@ -4,16 +4,39 @@ import Navbar from '@/components/Dashboard/Navbar';
 import Table from '@/components/Dashboard/Table';
 import Stat from '@/components/Dashboard/Stat';
 import Borrow from '@/components/Dashboard/Borrow';
+import Cate from '@/components/Dashboard/Category';
+import Author from '@/components/Dashboard/Author';
 import axios from 'axios';
 
 
 export default function Authenticated({ user }) {
     const [data, setData] = useState([]);
+    
 
     useEffect(() => {
         axios.get('/api/User')
             .then((res) => {
                 setData(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, []);
+
+    useEffect(() => {
+        axios.get('/api/Category')
+            .then((res) => {
+                setDataCategory(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, []);
+
+    useEffect(() => {
+        axios.get('/api/Author')
+            .then((res) => {
+                setDataAuthor(res.data);
             })
             .catch((err) => {
                 console.log(err);

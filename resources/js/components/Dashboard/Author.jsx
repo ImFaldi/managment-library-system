@@ -1,44 +1,44 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-function Book({ title, columns, rows, category, author }) {
+function Author({ title, columns, rows }) {
+    const [notification, setNotification] = useState(null);
 
     const [formData, setFormData] = useState({
-        title: '',
-        category_id: '',
-        author_id: '',
-        stock: '',
-        year: '',
+        name: '',
+        email: '',
+        phone: ''
     });
 
     const [formDataUpdate, setFormDataUpdate] = useState({
-        title: '',
-        category_id: '',
-        author_id: '',
-        stock: '',
-        year: '',
+        name: '',
+        email: '',
+        phone: ''
     });
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+    }
 
     const handleChangeUpdate = (e) => {
         setFormDataUpdate({ ...formDataUpdate, [e.target.name]: e.target.value });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmitAdd = (e) => {
         e.preventDefault();
-        axios.post('/api/Book', formData)
+        axios.post('/api/Author', formData)
             .then((res) => {
                 console.log(res);
                 console.log(res.data);
-
-                window.location.reload();
+                setNotification('Data berhasil dihapus');
+                setTimeout(() => {
+                    setNotification(null);
+                    window.location.reload();
+                }, 2000);
             });
-    };
+    }
 
     const handleDelete = (index) => {
-        axios.delete(`/api/Book/${index}`)
+        axios.delete(`/api/Author/${index}`)
             .then((res) => {
                 console.log(res);
                 console.log(res.data);
@@ -57,7 +57,7 @@ function Book({ title, columns, rows, category, author }) {
     const handleUpdate = (index, e) => {
         e.preventDefault();
 
-        axios.put(`/api/Book/${index}`, formDataUpdate)
+        axios.put(`/api/Author/${index}`, formDataUpdate)
             .then((res) => {
                 console.log(res);
                 console.log(res.data);
@@ -83,7 +83,7 @@ function Book({ title, columns, rows, category, author }) {
                     </div>
                     <div className="flex w-full justify-end">
                         <div className="text-end">
-                            <button className="btn btn-success btn-sm text-white" onClick={() => window.my_modal_book.showModal()}>Add</button>
+                            <button className="btn btn-success btn-sm text-white" onClick={() => window.my_modal_author.showModal()}>Add</button>
                         </div>
                     </div>
                 </div>
@@ -114,80 +114,52 @@ function Book({ title, columns, rows, category, author }) {
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div>
-                                                <div className="font-bold">{row.title}</div>
-                                                <div className="text-sm opacity-50">{row.category}</div>
+                                                <div className="font-bold">{row.name}</div>
+                                                <div className="text-sm opacity-50">{row.email}</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="text-sm">
-                                        <span className="badge badge-success badge-md text-white">{row.author}</span>
-                                    </td>
-                                    <td>{row.stock}</td>
-                                    <td>{row.year}</td>
+                                    <td>{row.phone}</td>
                                     <td>
-                                        <button className="btn btn-info btn-sm text-white" onClick={() => window[`my_modal_book_${index}`].showModal()}>Detail</button>
-                                        <dialog id={`my_modal_book_${index}`} className="modal">
+                                        <button className="btn btn-info btn-sm text-white" onClick={() => window[`my_modal_upauthor_${index}`].showModal()}>Detail</button>
+                                        <dialog id={`my_modal_upauthor_${index}`} className="modal">
                                             <form method="dialog" className="modal-box w-11/12 max-w-2xl" onSubmit={(e) => handleUpdate(row.id, e)}>
                                                 <h3 className="font-bold text-lg">{title} Update</h3>
-                                                <label className="label"> Title</label>
+                                                <label className="label"> Name</label>
                                                 <input
                                                     type="text"
-                                                    placeholder={row.title}
+                                                    placeholder={row.name}
                                                     className="input w-full input-bordered border-gray-400"
-                                                    value={formDataUpdate.title}
+                                                    value={formDataUpdate.name}
                                                     onChange={handleChangeUpdate}
-                                                    name="title"
+                                                    name="name"
                                                 />
 
-                                                <label className="label"> Category </label>
-                                                <select
-                                                    className="select select-bordered w-full border-gray-400"
-                                                    name="category_id"
-                                                    value={formDataUpdate.category_id}
-                                                    onChange={handleChangeUpdate}>
-                                                    <option value="">Select Category</option>
-                                                    {category.categories ? category.categories.map((category) => (
-                                                        <option key={category.id} value={category.id}>{category.title}</option>
-                                                    )) : []}
-                                                </select>
-
-                                                <label className="label"> Author </label>
-                                                <select
-                                                    className="select select-bordered w-full border-gray-400"
-                                                    name="author_id"
-                                                    value={formDataUpdate.author_id}
-                                                    onChange={handleChangeUpdate}>
-                                                    <option value="">Select Author</option>
-                                                    {author.authors ? author.authors.map((author) => (
-                                                        <option key={author.id} value={author.id}>{author.name}</option>
-                                                    )) : []}
-                                                </select>
-
-                                                <label className="label"> Stock</label>
+                                                <label className="label"> Email</label>
                                                 <input
                                                     type="text"
-                                                    placeholder={row.stock}
+                                                    placeholder={row.email}
                                                     className="input w-full input-bordered border-gray-400"
-                                                    value={formDataUpdate.stock}
+                                                    value={formDataUpdate.email}
                                                     onChange={handleChangeUpdate}
-                                                    name="stock"
+                                                    name="email"
                                                 />
 
-                                                <label className="label"> Year</label>
+                                                <label className="label"> Phone</label>
                                                 <input
                                                     type="text"
-                                                    placeholder={row.year}
+                                                    placeholder={row.phone}
                                                     className="input w-full input-bordered border-gray-400"
-                                                    value={formDataUpdate.year}
+                                                    value={formDataUpdate.phone}
                                                     onChange={handleChangeUpdate}
-                                                    name="year"
+                                                    name="phone"
                                                 />
 
                                                 <div className="modal-action">
                                                     <button className="btn btn-success text-white btn-sm">Update</button>
-                                                    <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delbook_${row.id}`].showModal()}>Delete</button>
+                                                    <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delet_${row.id}`].showModal()}>Delete</button>
                                                 </div>
-                                                <dialog id={`my_modal_delbook_${row.id}`} className="modal modal-bottom sm:modal-middle">
+                                                <dialog id={`my_modal_delet_${row.id}`} className="modal modal-bottom sm:modal-middle">
                                                     <form method="dialog" className="modal-box">
                                                         <h3 className="font-bold text-lg text-center">Apakah anda yakin ingin menghapus data ini?</h3>
                                                         <div className="divider"></div>
@@ -195,7 +167,9 @@ function Book({ title, columns, rows, category, author }) {
                                                         <p className="text-center">Tekan tombol <b>Close</b> untuk membatalkan</p>
                                                         <br />
                                                         <h3 className="font-bold text-lg text-center">Data yang akan dihapus</h3>
-                                                        <p className="text-left mt-2">Title: {row.title}</p>
+                                                        <p className="text-left mt-2">Nama: {row.name}</p>
+                                                        <p className="text-left mt-1">Email: {row.email}</p>
+                                                        <p className="text-left mt-1">Phone: {row.phone}</p>
 
                                                         <div className="divider"></div>
                                                         <div className="modal-action">
@@ -214,58 +188,40 @@ function Book({ title, columns, rows, category, author }) {
                     </table>
                 </div>
             </div>
-            <dialog id="my_modal_book" className="modal">
-                <form method="dialog" className="modal-box" onSubmit={handleSubmit}>
+            <dialog id="my_modal_author" className="modal modal-bottom sm:modal-middle">
+                <form method="dialog" className="modal-box" onSubmit={handleSubmitAdd}>
                     <h3 className="font-bold text-lg">{title} Create</h3>
-                    <label className="label"> Title </label>
+                    <label className="label"> Name</label>
                     <input
                         type="text"
-                        placeholder="Title"
+                        placeholder="Type here"
                         className="input w-full input-bordered border-gray-400"
-                        name="title"
-                        onChange={handleChange} />
+                        value={formData.name}
+                        onChange={handleChange}
+                        name="name"
+                    />
 
-                    <label className="label"> Category </label>
-                    <select
-                        className="select select-bordered w-full border-gray-400"
-                        name="category_id"
-                        onChange={handleChange}>
-                        <option value="">Select Category</option>
-                        {category.categories ? category.categories.map((category) => (
-                            <option key={category.id} value={category.id}>{category.title}</option>
-                        )) : []}
-                    </select>
-
-                    <label className="label"> Author </label>
-                    <select
-                        className="select select-bordered w-full border-gray-400"
-                        name="author_id"
-                        onChange={handleChange}>
-                        <option value="">Select Author</option>
-                        {author.authors ? author.authors.map((author) => (
-                            <option key={author.id} value={author.id}>{author.name}</option>
-                        )) : []}
-                    </select>
-
-                    <label className="label"> Stock </label>
+                    <label className="label"> Email</label>
                     <input
-                        type="number"
-                        placeholder="Stock"
+                        type="text"
+                        placeholder="Type here"
                         className="input w-full input-bordered border-gray-400"
-                        name="stock"
-                        onChange={handleChange} />
+                        value={formData.email}
+                        onChange={handleChange}
+                        name="email"
+                    />
 
-                    <label className="label"> Year </label>
+                    <label className="label"> Phone</label>
                     <input
-                        type="number"
-                        placeholder="Year"
+                        type="text"
+                        placeholder="Type here"
                         className="input w-full input-bordered border-gray-400"
-                        name="year"
-                        onChange={handleChange} />
-
+                        value={formData.phone}
+                        onChange={handleChange}
+                        name="phone"
+                    />
                     <div className="modal-action">
                         <button className="btn btn-success text-white btn-sm">Create</button>
-                        <button className="btn btn-error text-white btn-sm" onClick={() => window.my_modal_book.close()}>Cancel</button>
                     </div>
                 </form>
             </dialog>
@@ -273,4 +229,4 @@ function Book({ title, columns, rows, category, author }) {
     );
 }
 
-export default Book;  
+export default Author;  

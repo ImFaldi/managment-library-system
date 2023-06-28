@@ -11,11 +11,22 @@ function Table({ title, columns, rows }) {
         phone: '',
     });
 
+    const [formDataUpdate, setFormDataUpdate] = useState({
+        name: '',
+        email: '',
+        role: '',
+        phone: '',
+    });
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
-    const handleSubmit = (e) => {
+    const handleChangeUpdate = (e) => {
+        setFormDataUpdate({ ...formDataUpdate, [e.target.name]: e.target.value });
+    }
+
+    const handleSubmitAdd = (e) => {
         e.preventDefault();
         axios.post('/api/User', formData)
             .then((res) => {
@@ -45,6 +56,27 @@ function Table({ title, columns, rows }) {
                 console.log(err);
             });
     }
+
+    const handleUpdate = (index, e) => {
+        e.preventDefault();
+
+        axios.put(`/api/User/${index}`, formDataUpdate)
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+
+                setNotification('Data berhasil diupdate');
+                setTimeout(() => {
+                    setNotification(null);
+                    window.location.reload();
+                }, 2000);
+            })
+            .catch((err) => {
+                console.log(err);
+            }
+            );
+    }
+
     return (
 
         <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
@@ -98,29 +130,36 @@ function Table({ title, columns, rows }) {
                                     <td>{row.phone}</td>
                                     <td>
                                         <button className="btn btn-info btn-sm text-white" onClick={() => window[`my_modal_${index}`].showModal()}>Detail</button>
-                                        <dialog id={`my_modal_${index}`} className="modal modal-bottom sm:modal-middle">
-                                            <form method="dialog" className="modal-box">
-                                                <h3 className="font-bold text-lg">{title} Detail</h3>
+                                        <dialog id={`my_modal_${index}`} className="modal">
+                                            <form method="dialog" className="modal-box w-11/12 max-w-2xl" onSubmit={(e) => handleUpdate(row.id, e)}>
+                                                <h3 className="font-bold text-lg">{title} Update</h3>
                                                 <label className="label"> Name</label>
                                                 <input
                                                     type="text"
-                                                    placeholder="Type here"
+                                                    placeholder={row.name}
                                                     className="input w-full input-bordered border-gray-400"
-                                                    value={row.name}
-                                                    readOnly
-
+                                                    value={formDataUpdate.name}
+                                                    onChange={handleChangeUpdate}
+                                                    name="name"
                                                 />
+
                                                 <label className="label"> Email</label>
                                                 <input
                                                     type="text"
-                                                    placeholder="Type here"
+                                                    placeholder={row.email}
                                                     className="input w-full input-bordered border-gray-400"
-                                                    value={row.email}
-                                                    readOnly
+                                                    value={formDataUpdate.email}
+                                                    onChange={handleChangeUpdate}
+                                                    name="email"
                                                 />
 
                                                 <label className="label"> Role</label>
-                                                <select className="select select-bordered w-full border-gray-400" value={row.role} readOnly>
+                                                <select
+                                                    className="select select-bordered w-full border-gray-400"
+                                                    value={formDataUpdate.role}
+                                                    onChange={handleChangeUpdate}
+                                                    name="role">
+                                                    <option value="">-- {row.role} --</option>
                                                     <option value="admin">Admin</option>
                                                     <option value="receptionist">Receptionist</option>
                                                     <option value="member">Member</option>
@@ -129,26 +168,35 @@ function Table({ title, columns, rows }) {
                                                 <label className="label"> Phone</label>
                                                 <input
                                                     type="text"
-                                                    placeholder="Type here"
+                                                    placeholder={row.phone}
                                                     className="input w-full input-bordered border-gray-400"
-                                                    value={row.phone}
-                                                    readOnly
+                                                    value={formDataUpdate.phone}
+                                                    onChange={handleChangeUpdate}
+                                                    name="phone"
                                                 />
+
                                                 <div className="modal-action">
-                                                    {/* if there is a button in form, it will close the modal */}
                                                     <button className="btn btn-success text-white btn-sm">Update</button>
-                                                    <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delete_${index}`].showModal()}>Delete</button>
+                                                    <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delete_${row.id}`].showModal()}>Delete</button>
                                                 </div>
-                                                <dialog id={`my_modal_delete_${index}`} className="modal">
+                                                <dialog id={`my_modal_delete_${row.id}`} className="modal modal-bottom sm:modal-middle">
                                                     <form method="dialog" className="modal-box">
-                                                        <h3 className="font-bold text-lg text-center">Apakah anda yakin?</h3>
-                                                        <p className="py-4">Anda serius ingin menghapus data ini? Data yang sudah dihapus tidak dapat dikembalikan.</p>
-                                                        <p className="py-4">Press ESC key or click the button below to close</p>
-                                                        <p className="py-4">{notification}</p>
+                                                        <h3 className="font-bold text-lg text-center">Apakah anda yakin ingin menghapus data ini?</h3>
+                                                        <div className="divider"></div>
+                                                        <p className="text-center">Data yang sudah dihapus tidak dapat dikembalikan</p>
+                                                        <p className="text-center">Tekan tombol <b>Close</b> untuk membatalkan</p>
+                                                        <br />
+                                                        <h3 className="font-bold text-lg text-center">Data yang akan dihapus</h3>
+                                                        <p className="text-left mt-2">Nama: {row.name}</p>
+                                                        <p className="text-left mt-1">Email: {row.email}</p>
+                                                        <p className="text-left mt-1">Role: {row.role}</p>
+                                                        <p className="text-left mt-1">Phone: {row.phone}</p>
+
+                                                        <div className="divider"></div>
                                                         <div className="modal-action">
                                                             {/* if there is a button in form, it will close the modal */}
-                                                            <button className="btn btn-success text-white btn-sm" onClick={() => handleDelete(row.id)}>Delete</button>
-                                                            <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delete_${index}`].close()}>Cancel</button>
+                                                            <button className="btn btn-sm">Close</button>
+                                                            <button className="btn btn-error btn-sm text-white" onClick={() => handleDelete(row.id)}>Delete</button>
                                                         </div>
                                                     </form>
                                                 </dialog>
@@ -162,7 +210,7 @@ function Table({ title, columns, rows }) {
                 </div>
             </div>
             <dialog id="my_modal_add" className="modal modal-bottom sm:modal-middle">
-                <form method="dialog" className="modal-box" onSubmit={handleSubmit}>
+                <form method="dialog" className="modal-box" onSubmit={handleSubmitAdd}>
                     <h3 className="font-bold text-lg">{title} Create</h3>
                     <label className="label"> Name</label>
                     <input

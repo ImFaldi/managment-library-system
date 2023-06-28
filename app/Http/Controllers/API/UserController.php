@@ -23,6 +23,9 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'password'=> $request->password,
+            'role' => $request->role,
+            'phone' => $request->phone,
         ]);
 
         return response()->json([
@@ -53,6 +56,9 @@ class UserController extends Controller
             $user = User::where('id', $id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'password'=> $request->password,
+                'role' => $request->role,
+                'phone' => $request->phone,
             ]);
             return response()->json([
                 'message' => 'User updated successfully',
@@ -72,6 +78,7 @@ class UserController extends Controller
             $user = User::where('id', $id)->delete();
             return response()->json([
                 'message' => 'User deleted successfully',
+                'user' => $user,
             ]);
         } else {
             return response()->json([

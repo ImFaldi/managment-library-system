@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '@/components/Dashboard/Sidebar';
 import Navbar from '@/components/Dashboard/Navbar';
-import Table from '@/components/Tables/UserHistory';
+import Table from '@/components/Dashboard/Table';
 import Stat from '@/components/Dashboard/Stat';
 import Borrow from '@/components/Dashboard/Borrow';
 import axios from 'axios';

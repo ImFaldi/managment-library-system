@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from '@/components/Dashboard/Sidebar';
 import Navbar from '@/components/Dashboard/Navbar';
-import Tables from '@/components/Tables/TablesMember';
 import Table from '@/components/Tables/TablesBook';
 import Borrow from '@/components/Tables/TablesBorrow';
 
@@ -71,25 +70,6 @@ export default function Authenticated({ user }) {
                 <Sidebar />
                 <div className="flex flex-col w-full border-opacity-50">
                     <div className="grid mt-2 pr-5"><Navbar user={user} /></div>
-                    <div className="flex">
-                        <div className="mt-5 pr-5 w-full">
-                            <Tables
-                                title="Member Table"
-                                columns={[
-                                    'Name',
-                                    'Role',
-                                    'Phone',
-                                    'Action']}
-                                rows={userData.map((user) => ({
-                                    name: user.name,
-                                    email: user.email,
-                                    role: user.role,
-                                    phone: user.phone,
-                                    action: 'action'
-                                }))}
-                            />
-                        </div>
-                    </div>
                     <div className="flex">
                         <div className="mt-5 pr-5 w-full">
                             <Table

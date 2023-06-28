@@ -1,4 +1,39 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 function Book({ title, columns, rows }) {
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedAuthor, setSelectedAuthor] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [authors, setAuthors] = useState([]);
+    const [formData, setFormData] = useState({
+        title: '',
+        category: '',
+        author: '',
+        stock: '',
+        year: '',
+    });
+
+    useEffect(() => {
+        // Fetch categories
+        axios.get('/api/Category')
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching categories:', error);
+            });
+
+        // Fetch authors
+        axios.get('/api/Author')
+            .then(response => {
+                setAuthors(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching authors:', error);
+            });
+    }, []);
+
+
     const openModal = (index) => {
         window.selectedRowIndex = index;
         const modal = document.getElementById('my_modal');
@@ -6,6 +41,22 @@ function Book({ title, columns, rows }) {
             modal.showModal();
         }
     };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post('/api/User', formData)
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+            });
+    };
+
+
+
     return (
         <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
             <div className="card-body">

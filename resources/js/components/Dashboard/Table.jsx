@@ -198,8 +198,9 @@ function Table({ title, columns, rows }) {
                     <select
                         className="select select-bordered w-full border-gray-400"
                         value={formData.role}
-                        onChange={  handleChange}
+                        onChange={handleChange}
                         name="role">
+                        <option value="">-- Select Role --</option>
                         <option value="admin">Admin</option>
                         <option value="receptionist">Receptionist</option>
                         <option value="member">Member</option>

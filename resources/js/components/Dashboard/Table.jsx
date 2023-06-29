@@ -3,7 +3,7 @@ import axios from 'axios';
 function Table({ title, columns, rows }) {
     const [notification, setNotification] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const perPage = 4;
+    const perPage = 5;
     const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / perPage));
 
     const startIndex = (currentPage - 1) * perPage;

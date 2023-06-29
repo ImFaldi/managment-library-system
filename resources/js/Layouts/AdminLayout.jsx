@@ -4,26 +4,47 @@ import Navbar from '@/components/Dashboard/Navbar';
 import Table from '@/components/Dashboard/Table';
 import Stat from '@/components/Dashboard/Stat';
 import Borrow from '@/components/Dashboard/Borrow';
-import Cate from '@/components/Dashboard/Category';
-import Author from '@/components/Dashboard/Author';
 import axios from 'axios';
 
 
 export default function Authenticated({ user }) {
-    const [data, setData] = useState([]);
-    
+    const [dataUser, setDataUser] = useState([]);
+    const [dataBorrow, setDataBorrow] = useState([]);
+    const [dataBook, setDataBook] = useState([]);
+
 
     useEffect(() => {
         axios.get('/api/User')
             .then((res) => {
-                setData(res.data);
+                setDataUser(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }, []);
+
+    useEffect(() => {
+        axios.get('/api/Borrow')
+            .then((res) => {
+                setDataBorrow(res.data);
             })
             .catch((err) => {
                 console.log(err);
             })
     }, []);
 
-    console.log(data);
+    useEffect(() => {
+        axios.get('/api/Book')
+            .then((res) => {
+                setDataBook(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, []);
+
+    console.log(dataUser, dataBorrow, dataBook.book);
     return (
         <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 0, 255, 0.4) 35%, rgba(128, 128, 128, 0.1) 35%)' }}>
             <div className="flex flex-row">
@@ -40,7 +61,7 @@ export default function Authenticated({ user }) {
                                     'Role',
                                     'Phone',
                                     'Action']}
-                                rows={data.user ? data.user.map((user) => ({
+                                rows={dataUser.user ? dataUser.user.map((user) => ({
                                     id: user.id,
                                     name: user.name,
                                     email: user.email,
@@ -50,7 +71,24 @@ export default function Authenticated({ user }) {
                                 })) : []}
                             />
                         </div>
-                        <div className="mt-5 pr-5 w-full"><Borrow /></div>
+                        <div className="mt-5 pr-5 w-full"><Borrow
+                            rows={dataBorrow.borrows ? dataBorrow.borrows.map((borrow) => ({
+                                id: borrow.id,
+                                book: dataBook.books ? dataBook.books.map((book) => {
+                                    if (book.id == borrow.book_id) {
+                                        return book.title;
+                                    }
+                                }) : [],
+                                user: dataUser.user ? dataUser.user.map((user) => {
+                                    if (user.id == borrow.user_id) {
+                                        return user.name;
+                                    }
+                                }) : [],
+                                status: borrow.status,
+                                return_date: borrow.return_date,
+                                penalty: borrow.penalty,
+                            })) : []}
+                        /></div>
                     </div>
                 </div>
             </div>

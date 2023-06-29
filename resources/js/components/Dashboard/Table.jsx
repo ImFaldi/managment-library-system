@@ -2,6 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 function Table({ title, columns, rows }) {
     const [notification, setNotification] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const perPage = 4;
+    const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / perPage));
+
+    const startIndex = (currentPage - 1) * perPage;
+    const endIndex = currentPage * perPage;
+    const currentRows = rows.slice(startIndex, endIndex);
+
+    const goToPage = (page) => {
+        setCurrentPage(page);
+    }
 
     const [formData, setFormData] = useState({
         name: '',
@@ -109,7 +120,7 @@ function Table({ title, columns, rows }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {rows.map((row, index) => (
+                            {currentRows.map((row, index) => (
                                 <tr key={index}>
                                     <th>
                                         <label>
@@ -180,7 +191,7 @@ function Table({ title, columns, rows }) {
                                                     <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delete_${row.id}`].showModal()}>Delete</button>
                                                 </div>
                                                 <dialog id={`my_modal_delete_${row.id}`} className="modal modal-bottom sm:modal-middle">
-                                                    <form method="dialog" className="modal-box">
+                                                    <div method="dialog" className="modal-box">
                                                         <h3 className="font-bold text-lg text-center">Apakah anda yakin ingin menghapus data ini?</h3>
                                                         <div className="divider"></div>
                                                         <p className="text-center">Data yang sudah dihapus tidak dapat dikembalikan</p>
@@ -195,10 +206,10 @@ function Table({ title, columns, rows }) {
                                                         <div className="divider"></div>
                                                         <div className="modal-action">
                                                             {/* if there is a button in form, it will close the modal */}
-                                                            <button className="btn btn-sm">Close</button>
+                                                            <button className="btn btn-sm" onClick={() => window[`my_modal_delete_${row.id}`].close()}>Close</button>
                                                             <button className="btn btn-error btn-sm text-white" onClick={() => handleDelete(row.id)}>Delete</button>
                                                         </div>
-                                                    </form>
+                                                    </div>
                                                 </dialog>
                                             </form>
                                         </dialog>
@@ -207,6 +218,31 @@ function Table({ title, columns, rows }) {
                             ))}
                         </tbody>
                     </table>
+                    <div className="join w-full justify-end mt-5">
+                        <button
+                            className="join-item btn btn-sm"
+                            onClick={() => goToPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            «
+                        </button>
+                        {Array.from({ length: totalPages }).map((_, index) => (
+                            <button
+                                key={index}
+                                className={`join-item btn btn-sm ${currentPage === index + 1 ? 'active' : ''}`}
+                                onClick={() => goToPage(index + 1)}
+                            >
+                                Page {index + 1}
+                            </button>
+                        ))}
+                        <button
+                            className="join-item btn btn-sm"
+                            onClick={() => goToPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        >
+                            »
+                        </button>
+                    </div>
                 </div>
             </div>
             <dialog id="my_modal_add" className="modal modal-bottom sm:modal-middle">

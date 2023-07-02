@@ -27,6 +27,8 @@ class BorrowController extends Controller
             'book_id' => $request->book_id,
             'borrow_date' => $request->borrow_date,
             'return_date' => $request->return_date,
+            'status' => $request->status,
+            'penalty' => '0',
         ]);
 
         return response()->json([
@@ -55,6 +57,8 @@ class BorrowController extends Controller
                 'book_id' => $request->book_id,
                 'borrow_date' => $request->borrow_date,
                 'return_date' => $request->return_date,
+                'status' => $request->status,
+                'penalty' => $request->penalty,
             ]);
             return response()->json([
                 'message' => 'Borrow updated successfully',
@@ -75,6 +79,26 @@ class BorrowController extends Controller
             $borrow = Borrow::where('id', $id)->delete();
             return response()->json([
                 'message' => 'Borrow deleted successfully',
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Borrow not found',
+            ]);
+        }
+    }
+
+    public function return(Request $request, $id)
+    {
+        // Api call to return a borrow
+        $check = Borrow::find($id);
+        if ($check) {
+            $borrow = Borrow::where('id', $id)->update([
+                'status' => $request->status,
+                'penalty' => $request->penalty,
+            ]);
+            return response()->json([
+                'message' => 'Borrow returned successfully',
+                'borrow' => $borrow,
             ]);
         } else {
             return response()->json([

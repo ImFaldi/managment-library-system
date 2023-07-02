@@ -39,7 +39,7 @@ use App\Http\Controllers\API\UserController;
     Route::get('/Borrow/{id}', [BorrowController::class, 'show']);
     Route::put('/Borrow/{id}', [BorrowController::class, 'update']);
     Route::delete('/Borrow/{id}', [BorrowController::class, 'destroy']);
-
+    Route::put('/Borrow/return/{id}', [BorrowController::class, 'return']);
 //Category
     Route::get('/Category', [CategoryController::class, 'index']);
     Route::post('/Category', [CategoryController::class, 'store']);

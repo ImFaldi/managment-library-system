@@ -1,6 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 function Book({ title, columns, rows, category, author }) {
+    const [currentPage, setCurrentPage] = useState(1);
+    const perPage = 5;
+    const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / perPage));
+    useEffect(() => {
+        setTotalPages(Math.ceil(rows.length / perPage));
+    }, [rows]);
+
+    const startIndex = (currentPage - 1) * perPage;
+    const endIndex = currentPage * perPage;
+    const currentRows = rows.slice(startIndex, endIndex);
+
+    const goToPage = (page) => {
+        setCurrentPage(page);
+    }
+
 
     const [formData, setFormData] = useState({
         title: '',
@@ -104,7 +119,7 @@ function Book({ title, columns, rows, category, author }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {rows.map((row, index) => (
+                            {currentRows.map((row, index) => (
                                 <tr key={index}>
                                     <th>
                                         <label>
@@ -212,6 +227,23 @@ function Book({ title, columns, rows, category, author }) {
                             ))}
                         </tbody>
                     </table>
+                    <div className="join w-full justify-end mt-5">
+                        <button
+                            className="join-item btn-outline btn btn-sm"
+                            onClick={() => goToPage(currentPage - 1)}
+                            disabled={currentPage === 1}
+                        >
+                            «
+                        </button>
+                        <span className="join-item btn btn-outline btn-seccondary btn-sm">{currentPage}</span>
+                        <button
+                            className="join-item btn-outline btn btn-sm"
+                            onClick={() => goToPage(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                        >
+                            »
+                        </button>
+                    </div>
                 </div>
             </div>
             <dialog id="my_modal_book" className="modal">

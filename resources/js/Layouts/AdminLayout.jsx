@@ -68,27 +68,33 @@ export default function Authenticated({ user }) {
                                 }))}
                             />
                         </div>
-                        <div className="mt-5 pr-5 w-full"><Borrow
-                            rows={dataBorrow.filter((row) => row.status === "borrowed").map((borrow) => ({
-                                id: borrow.id,
-                                user_id: borrow.user_id,
-                                book_id: borrow.book_id,
-                                borrow_date: borrow.borrow_date,
-                                return_date: borrow.return_date,
-                                status: borrow.status,
-                                book: dataBook.map((book) => {
-                                    if (book.id == borrow.book_id) {
-                                        return book.title;
-                                    }
-                                }),
-                                user: dataUser.map((user) => {
-                                    if (user.id == borrow.user_id) {
-                                        return user.name;
-                                    }
-                                })}))}
-                            books={dataBook}
-                            users={dataUser}
-                        /></div>
+                        <div className="mt-5 pr-5 w-full">
+                            <Borrow
+                                rows={dataBorrow.filter((row) => row.status === "borrowed").map((borrow) => {
+                                    const book = dataBook.find((book) => book.id === borrow.book_id);
+                                    const user = dataUser.find((user) => user.id === borrow.user_id);
+                                    const returnDate = new Date(borrow.return_date);
+                                    const currentDate = new Date();
+                                    const timeDiff = returnDate.getTime() - currentDate.getTime();
+                                    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                                    const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })
+                                    const penalty = daysDiff < 0 ? formatter.format(Math.abs(daysDiff) * 10000) : formatter.format(0);
+                                    console.log(penalty);
+                                    return {
+                                        id: borrow.id,
+                                        user_id: borrow.user_id,
+                                        book_id: borrow.book_id,
+                                        borrow_date: borrow.borrow_date,
+                                        return_date: borrow.return_date,
+                                        status: borrow.status,
+                                        book: book ? book.title : "",
+                                        user: user ? user.name : "",
+                                        penalty: penalty,
+                                    };
+                                })}
+                                books={dataBook}
+                                users={dataUser}
+                            /></div>
                     </div>
                 </div>
             </div>

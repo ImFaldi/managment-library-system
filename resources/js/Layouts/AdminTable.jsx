@@ -3,8 +3,8 @@ import axios from 'axios';
 import Sidebar from '@/components/Dashboard/Sidebar';
 import Navbar from '@/components/Dashboard/Navbar';
 import Table from '@/components/Tables/TablesBook';
-import Cate from '@/components/Dashboard/Category';
-import Author from '@/components/Dashboard/Author';
+import Cate from '@/components/Tables/TablesCategory';
+import Author from '@/components/Tables/TablesAuthor';
 import Borrow from '@/components/Tables/TablesBorrow';
 
 export default function Authenticated({ user }) {

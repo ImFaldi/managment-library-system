@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '@/components/Dashboard/Sidebar';
 import Navbar from '@/components/Dashboard/Navbar';
-import Table from '@/components/Dashboard/Table';
+import Table from '@/components/Tables/TablesUser';
 import Stat from '@/components/Dashboard/Stat';
-import Borrow from '@/components/Dashboard/Borrow';
+import Borrow from '@/components/Dashboard/HistoryBorrow';
 import axios from 'axios';
 
 

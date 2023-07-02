@@ -3,11 +3,6 @@ import { Link } from '@inertiajs/react';
 
 function Sidebar() {
     const [active, setActive] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    const handleLinkClick = () => {
-        setIsLoaded(true);
-    }
 
     useEffect(() => {
         const currentPath = window.location.pathname;
@@ -17,13 +12,6 @@ function Sidebar() {
     const isActive = (path) => {
         return path === active ? 'tooltip tooltip-right active' : 'tooltip tooltip-right';
     }
-
-    const showLoadingIndicator = () => {
-        if (isLoaded) {
-            return <span className="loading loading-ring loading-lg z-50 fixed top-1/2 left-1/2"></span>;
-        }
-        return null;
-    };
 
     return (
         <div className="container-fluid px-5">
@@ -35,8 +23,7 @@ function Sidebar() {
                             //active ketika di klik
                             className={isActive('/dashboard')}
                             data-tip="Home"
-                            href={route('dashboard')}
-                            onClick={handleLinkClick}>
+                            href={route('dashboard')}>
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
                                 fill="none"
@@ -52,14 +39,12 @@ function Sidebar() {
                         <Link
                             className={isActive('/datatable')}
                             data-tip="Table"
-                            href={route('datatable')}
-                            onClick={handleLinkClick}>
+                            href={route('datatable')}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                         </Link>
                     </li>
                 </ul>
             </div>
-            {showLoadingIndicator()}
         </div>
 
     );

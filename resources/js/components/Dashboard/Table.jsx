@@ -3,7 +3,7 @@ import axios from 'axios';
 function Table({ title, columns, rows }) {
     const [notification, setNotification] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const perPage = 5;
+    const perPage = 7;
     const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / perPage));
 
     useEffect(() => {
@@ -98,7 +98,7 @@ function Table({ title, columns, rows }) {
 
     return (
 
-        <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
+        <div className="card bg-base-100 shadow-xl h-min w-full mr-5 mb-5">
             <div className="card-body">
                 <div className="flex">
                     <div className="flex w-full">
@@ -113,7 +113,7 @@ function Table({ title, columns, rows }) {
                 </div>
                 <div className="divider"></div>
                 <div className="overflow-x-auto">
-                    <table className="table">
+                    <table className="table mb-3">
                         {/* head */}
                         <thead>
                             <tr>
@@ -144,7 +144,9 @@ function Table({ title, columns, rows }) {
                                         </div>
                                     </td>
                                     <td className="text-sm">
-                                        <span className="badge badge-success badge-md text-white">{row.role}</span>
+                                        <span 
+                                        className={`badge badge${row.role === 'admin' ? '-info' : row.role === 'receptionist' ? '-success' : '-warning'} badge-md text-white`}>
+                                            {row.role}</span>
                                     </td>
                                     <td>{row.phone}</td>
                                     <td>

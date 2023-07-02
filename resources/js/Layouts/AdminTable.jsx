@@ -93,7 +93,6 @@ export default function Authenticated({ user }) {
                 title="Author Table"
                 columns={[
                   'Author Name',
-                  'Email',
                   'Phone',
                   'Action']}
                 rows={dataAuthor.authors ? dataAuthor.authors.map((author) => ({

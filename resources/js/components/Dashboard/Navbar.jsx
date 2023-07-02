@@ -1,6 +1,13 @@
 import { Link } from '@inertiajs/react';
+import React, { useEffect, useState } from 'react';
 
 function Navbar({ user }) {
+    const [breadcrumb, setBreadcrumb] = useState([]);
+
+    useEffect(() => {
+        const path = window.location.pathname;
+        setBreadcrumb(path);
+    }, []);
 
     return (
         <div className="container-fluid mx-auto w-full pb-3">
@@ -11,16 +18,13 @@ function Navbar({ user }) {
                             <div className="col-start-1 col-end-4">
                                 <a className="btn btn-ghost normal-case text-xl">Library Managment</a>
                             </div>
-                            <div className="col-start-1 col-end-4 mx-5" style={{ marginTop: '-10%' }}>
+                            <div className="col-start-1 col-end-4 mx-5" style={{ marginTop: '-12%' }}>
                                 <div className="text-sm breadcrumbs">
                                     <ul>
-                                        <li><a>Home</a></li>
-                                        <li><a>Documents</a></li>
-                                        <li>Add Document</li>
+                                        <li><Link href={route('dashboard')}>Dashboard</Link></li>
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div className="flex-1 justify-end">

@@ -69,7 +69,10 @@ function Book({ title, columns, rows }) {
                                         </div>
                                     </td>
                                     <td className="text-sm">
-                                        <span className="badge badge-success badge-md text-white">{row.status}</span>
+                                        <span
+                                            className={`badge badge${ row.status === 'returned' ? '-success' : '-warning' } text-white`} >
+                                            {row.status}
+                                        </span>
                                     </td>
                                     <td>{row.borrow}</td>
                                     <td>{row.return}</td>

@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 function Table({ title, columns, rows }) {
     const [notification, setNotification] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const perPage = 5;
     const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / perPage));
+
+    useEffect(() => {
+        setTotalPages(Math.ceil(rows.length / perPage));
+    }, [rows]);
 
     const startIndex = (currentPage - 1) * perPage;
     const endIndex = currentPage * perPage;
@@ -48,7 +52,11 @@ function Table({ title, columns, rows }) {
                     setNotification(null);
                     window.location.reload();
                 }, 2000);
+            })
+            .catch((err) => {
+                console.log(err);
             });
+
     }
 
     const handleDelete = (index) => {
@@ -220,23 +228,15 @@ function Table({ title, columns, rows }) {
                     </table>
                     <div className="join w-full justify-end mt-5">
                         <button
-                            className="join-item btn btn-sm"
+                            className="join-item btn-outline btn btn-sm"
                             onClick={() => goToPage(currentPage - 1)}
                             disabled={currentPage === 1}
                         >
                             «
                         </button>
-                        {Array.from({ length: totalPages }).map((_, index) => (
-                            <button
-                                key={index}
-                                className={`join-item btn btn-sm ${currentPage === index + 1 ? 'active' : ''}`}
-                                onClick={() => goToPage(index + 1)}
-                            >
-                                Page {index + 1}
-                            </button>
-                        ))}
+                        <span className="join-item btn btn-outline btn-seccondary btn-sm">{currentPage}</span>
                         <button
-                            className="join-item btn btn-sm"
+                            className="join-item btn-outline btn btn-sm"
                             onClick={() => goToPage(currentPage + 1)}
                             disabled={currentPage === totalPages}
                         >

@@ -38,5 +38,61 @@ class UserSeed extends Seeder
             'role' => 'member',
             'phone' => '081134567890'
         ]);
+
+        User::create([
+            'name' => 'Member',
+            'email' => 'mem@gmail.com',
+            'password' => bcrypt('member'),
+            'role' => 'member',
+            'phone' => '081134567890'
+        ]);
+
+        User::create([
+            'name' => 'Agus',
+            'email' => 'gus@gmail.com',
+            'password' => bcrypt('agus'),
+            'role' => 'member',
+            'phone' => '081134567890'
+        ]);
+
+        User::create([
+            'name' => 'Budi',
+            'email' => 'bud@gmail.com',
+            'password' => bcrypt('budi'),
+            'role' => 'member',
+            'phone' => '081134567890'
+        ]);
+
+        User::create([
+            'name' => 'Caca',
+            'email' => 'caca@gmail.com',
+            'password' => bcrypt('caca'),
+            'role' => 'member',
+            'phone' => '081134567890'
+        ]);
+
+        User::create([
+            'name' => 'Dedi',
+            'email' => 'ded@gmail.com',
+            'password' => bcrypt('dedi'),
+            'role' => 'member',
+            'phone' => '081134567890'
+        ]);
+
+        User::create([
+            'name' => 'Eko',
+            'email' => 'eko@gmail.com',
+            'password' => bcrypt('eko'),
+            'role' => 'member',
+            'phone' => '081134567890'
+        ]);
+
+        User::create([
+            'name' => 'Fajar',
+            'email' => 'jar@gmail.com',
+            'password' => bcrypt('fajar'),
+            'role' => 'member',
+            'phone' => '081134567890'
+        ]);
     }
 }

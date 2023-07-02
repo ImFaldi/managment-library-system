@@ -47,7 +47,7 @@ export default function Authenticated({ user }) {
                                 }))}
                             />
                         </div>
-                        <div className="mt-5 pr-5 w-full"><Borrow /></div>
+                        {/* <div className="mt-5 pr-5 w-full"><Borrow /></div> */}
                     </div>
                 </div>
             </div>

@@ -6,8 +6,9 @@ function Book({ title, columns, rows }) {
             modal.showModal();
         }
     };
+
     return (
-        <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
+        <div className="card bg-base-100 shadow-xl h-min w-full mr-5 mb-5">
             <div className="card-body">
                 <div className="flex">
                     <div className="flex w-full">
@@ -57,7 +58,7 @@ function Book({ title, columns, rows }) {
                                     <td>{row.borrow}</td>
                                     <td>{row.return}</td>
                                     <td className="text-sm">
-                                        <span className="badge badge-success badge-md text-white">{row.penalty}</span>
+                                        Rp. {row.penalty}
                                     </td>
                                     <td>
                                         <button className="btn btn-info btn-sm text-white" onClick={() => openModal(index)}>Detail</button>
@@ -82,7 +83,7 @@ function Book({ title, columns, rows }) {
                 <form method="dialog" className="modal-box">
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">Press ESC key or click on ✕ button to close</p>
+                    <p className="py-4">Press ESC key or click on ✕ button to close Add</p>
                 </form>
             </dialog>
         </div >

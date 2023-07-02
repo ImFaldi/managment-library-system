@@ -130,7 +130,6 @@ export default function Authenticated({ user }) {
                                         borrow: borrow.borrow_date,
                                         return: borrow.return_date,
                                         penalty: borrow.penalty,
-                                        action: 'action'
                                     })
                                 ) : []}
                             />

@@ -24,9 +24,21 @@ function Borrow({ rows, books, users }) {
         book_id: '',
     });
 
+    const [returnData, setReturnData] = useState({
+        status: '',
+        penalty: '',
+    });
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
+            [e.target.name]: e.target.value.trim(),
+        });
+    };
+
+    const handleReturnChange = (e) => {
+        setReturnData({
+            ...returnData,
             [e.target.name]: e.target.value.trim(),
         });
     };
@@ -43,9 +55,9 @@ function Borrow({ rows, books, users }) {
             })
     };
 
-    const handleReturn = (e) => {
+    const handleReturn = (index, e) => {
         e.preventDefault();
-        axios.put('/api/Borrow', formData)
+        axios.put(`/api/Borrow/return/${index}`, returnData)
             .then((res) => {
                 console.log(res);
                 window.location.reload();
@@ -56,7 +68,6 @@ function Borrow({ rows, books, users }) {
     };
 
     return (
-        console.log(books),
         <div className="card bg-base-100 shadow-xl h-min w-full mr-5">
             <div className="card-body">
                 <div className="flex">
@@ -87,8 +98,37 @@ function Borrow({ rows, books, users }) {
                                 </div>
                             </div>
                             <div className="ms-auto text-end">
-                                <button className="btn btn-info btn-sm text-white text-gradient px-3 mb-0" onClick={() => window.my_modal_return_borrow.showModal()}>Return</button>
+                                <button className="btn btn-info btn-sm text-white text-gradient px-3 mb-0" onClick={() => window['my_modal_return_' + row.id].showModal()}>Return</button>
                             </div>
+
+                            <dialog id={'my_modal_return_' + row.id} className="modal">
+                                <form method="dialog" className="modal-box" onSubmit={handleReturn}>
+                                    <h3 className="font-bold text-lg text-center">Apakah anda yakin ingin mengembalikan buku ini?</h3>
+                                    <div className="divider"></div>
+                                    <p className="text-sm text-center">Jika anda yakin, silahkan masukkan denda yang harus dibayar oleh peminjam dengan denda sebesar Rp. 10.000 per hari</p>
+                                    <div className="alert alert-warning text-white mt-5 mb-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                        <h3 className="font-bold text-lg text-center">Denda</h3>
+                                        <p className="text-sm text-center text-bold font-bold">{row.penalty}</p>
+                                    </div>
+                                    <div className="form-control">
+                                        <label className="label">
+                                            <input type="checkbox" className="checkbox checkbox" name="status" value="returned" onChange={handleReturnChange} />
+                                            <span className="label-text w-full ml-3">Saya yakin ingin mengembalikan buku ini</span>
+                                        </label>
+                                    </div>
+                                    <div className="form-control">
+                                        <label className="label">
+                                            <input type="checkbox" className="checkbox checkbox" name="penalty" value={row.penalty} onChange={handleReturnChange} />
+                                            <span className="label-text w-full ml-3">Dengan ini saya menyetujui denda yang harus dibayar oleh peminjam</span>
+                                        </label>
+                                    </div>
+                                    <div className="modal-action">
+                                        <button className="btn btn-warning btn-sm text-white" type="submit" onClick={(e) => handleReturn(row.id, e)}>Return</button>
+                                        <button className="btn btn-error text-white btn-sm" onClick={() => window.my_modal_add_borrow.close()}>Close</button>
+                                    </div>
+                                </form>
+                            </dialog>
                         </li>
                     ))}
                 </ul>
@@ -124,10 +164,10 @@ function Borrow({ rows, books, users }) {
                         ))}
                     </select>
                     <label className="label">Book Name</label>
-                    <select 
-                    className="select select-bordered w-full border-gray-400" 
-                    name="book_id" 
-                    onChange={handleChange}>
+                    <select
+                        className="select select-bordered w-full border-gray-400"
+                        name="book_id"
+                        onChange={handleChange}>
                         <option value="">Select Book</option>
                         {books.map((book, index) => (
                             <option key={index} value={book.id}>{book.title}</option>

@@ -113,7 +113,7 @@ function Table({ title, columns, rows }) {
                 </div>
                 <div className="divider"></div>
                 <div className="overflow-x-auto">
-                    <table className="table mb-3">
+                    <table className="table mb-4">
                         {/* head */}
                         <thead>
                             <tr>

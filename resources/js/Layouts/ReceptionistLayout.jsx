@@ -9,6 +9,8 @@ import axios from 'axios';
 
 export default function Authenticated({ user }) {
     const [data, setData] = useState([]);
+    const [dataBorrow, setDataBorrow] = useState([]);
+    const [dataBook, setDataBook] = useState([]);
 
     useEffect(() => {
         axios
@@ -22,7 +24,25 @@ export default function Authenticated({ user }) {
             });
     }, []);
 
-    console.log(data);
+    useEffect(() => {
+        axios.get('/api/Borrow')
+            .then((res) => {
+                setDataBorrow(res.data.borrows);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, []);
+
+    useEffect(() => {
+        axios.get('/api/Book')
+            .then((res) => {
+                setDataBook(res.data.books);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, []);
     return (
         <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 254, 0, 0.4) 35%, rgba(128, 128, 128, 0.1) 35%)' }}>
             <div className="flex flex-row">
@@ -47,7 +67,27 @@ export default function Authenticated({ user }) {
                                 }))}
                             />
                         </div>
-                        {/* <div className="mt-5 pr-5 w-full"><Borrow /></div> */}
+                        <div className="mt-5 pr-5 w-full">
+                            <Borrow 
+                                rows={dataBorrow.map((borrow) => ({
+                                    id: borrow.id,
+                                    user_id: borrow.user_id,
+                                    book_id: borrow.book_id,
+                                    borrow_date: borrow.borrow_date,
+                                    return_date: borrow.return_date,
+                                    status: borrow.status,
+                                    book: dataBook.map((book) => {
+                                        if (book.id == borrow.book_id) {
+                                            return book.title;
+                                        }
+                                    }),
+                                    user: data.map((user) => {
+                                        if (user.id == borrow.user_id) {
+                                            return user.name;
+                                        }
+                                    })
+                                }))}
+                        /></div>
                     </div>
                 </div>
             </div>

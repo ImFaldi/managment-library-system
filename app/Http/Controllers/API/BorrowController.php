@@ -25,9 +25,9 @@ class BorrowController extends Controller
         $borrow = Borrow::create([
             'user_id' => $request->user_id,
             'book_id' => $request->book_id,
-            'borrow_date' => $request->borrow_date,
-            'return_date' => $request->return_date,
-            'status' => $request->status,
+            'borrow_date' => date('Y-m-d'),
+            'return_date' => date('Y-m-d', strtotime($request->borrow_date . ' + 7 days')),
+            'status' => "borrowed", // "borrowed" or "returned
             'penalty' => '0',
         ]);
 

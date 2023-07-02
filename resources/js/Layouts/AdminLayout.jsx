@@ -16,7 +16,7 @@ export default function Authenticated({ user }) {
     useEffect(() => {
         axios.get('/api/User')
             .then((res) => {
-                setDataUser(res.data);
+                setDataUser(res.data.user);
             })
             .catch((err) => {
                 console.log(err);
@@ -27,7 +27,7 @@ export default function Authenticated({ user }) {
     useEffect(() => {
         axios.get('/api/Borrow')
             .then((res) => {
-                setDataBorrow(res.data);
+                setDataBorrow(res.data.borrows);
             })
             .catch((err) => {
                 console.log(err);
@@ -37,14 +37,12 @@ export default function Authenticated({ user }) {
     useEffect(() => {
         axios.get('/api/Book')
             .then((res) => {
-                setDataBook(res.data);
+                setDataBook(res.data.books);
             })
             .catch((err) => {
                 console.log(err);
             })
     }, []);
-
-    console.log(dataUser, dataBorrow, dataBook.book);
     return (
         <div className="min-h-screen pt-3" style={{ background: 'linear-gradient(to bottom, rgba(0, 0, 255, 0.4) 35%, rgba(128, 128, 128, 0.1) 35%)' }}>
             <div className="flex flex-row">
@@ -59,35 +57,37 @@ export default function Authenticated({ user }) {
                                 columns={[
                                     'Name',
                                     'Role',
-                                    'Phone',
-                                    'Action']}
-                                rows={dataUser.user ? dataUser.user.map((user) => ({
+                                    'Phone'
+                                ]}
+                                rows={dataUser.map((user) => ({
                                     id: user.id,
                                     name: user.name,
                                     email: user.email,
                                     role: user.role,
-                                    phone: user.phone,
-                                    action: 'action'
-                                })) : []}
+                                    phone: user.phone
+                                }))}
                             />
                         </div>
                         <div className="mt-5 pr-5 w-full"><Borrow
-                            rows={dataBorrow.borrows ? dataBorrow.borrows.map((borrow) => ({
+                            rows={dataBorrow.filter((row) => row.status === "borrowed").map((borrow) => ({
                                 id: borrow.id,
-                                book: dataBook.books ? dataBook.books.map((book) => {
+                                user_id: borrow.user_id,
+                                book_id: borrow.book_id,
+                                borrow_date: borrow.borrow_date,
+                                return_date: borrow.return_date,
+                                status: borrow.status,
+                                book: dataBook.map((book) => {
                                     if (book.id == borrow.book_id) {
                                         return book.title;
                                     }
-                                }) : [],
-                                user: dataUser.user ? dataUser.user.map((user) => {
+                                }),
+                                user: dataUser.map((user) => {
                                     if (user.id == borrow.user_id) {
                                         return user.name;
                                     }
-                                }) : [],
-                                status: borrow.status,
-                                return_date: borrow.return_date,
-                                penalty: borrow.penalty,
-                            })) : []}
+                                })}))}
+                            books={dataBook}
+                            users={dataUser}
                         /></div>
                     </div>
                 </div>

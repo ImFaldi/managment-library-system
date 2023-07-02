@@ -60,6 +60,7 @@ export default function Authenticated({ user }) {
                                     'Phone'
                                 ]}
                                 rows={data.map((user) => ({
+                                    id: user.id,
                                     name: user.name,
                                     email: user.email,
                                     role: user.role,
@@ -69,7 +70,7 @@ export default function Authenticated({ user }) {
                         </div>
                         <div className="mt-5 pr-5 w-full">
                             <Borrow 
-                                rows={dataBorrow.map((borrow) => ({
+                                rows={dataBorrow.filter((row) => row.status === "borrowed").map((borrow) => ({
                                     id: borrow.id,
                                     user_id: borrow.user_id,
                                     book_id: borrow.book_id,
@@ -85,8 +86,9 @@ export default function Authenticated({ user }) {
                                         if (user.id == borrow.user_id) {
                                             return user.name;
                                         }
-                                    })
-                                }))}
+                                    })}))}
+                                books={dataBook}
+                                users={data}
                         /></div>
                     </div>
                 </div>

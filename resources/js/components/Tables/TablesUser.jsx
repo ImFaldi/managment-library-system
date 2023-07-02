@@ -180,7 +180,7 @@ function Table({ title, columns, rows }) {
                                                     value={formDataUpdate.role}
                                                     onChange={handleChangeUpdate}
                                                     name="role">
-                                                    <option value="">-- {row.role} --</option>
+                                                    <option value="">{row.role}</option>
                                                     <option value="admin">Admin</option>
                                                     <option value="receptionist">Receptionist</option>
                                                     <option value="member">Member</option>
@@ -286,7 +286,7 @@ function Table({ title, columns, rows }) {
                         value={formData.role}
                         onChange={handleChange}
                         name="role">
-                        <option value="">-- Select Role --</option>
+                        <option value="">Select Role</option>
                         <option value="admin">Admin</option>
                         <option value="receptionist">Receptionist</option>
                         <option value="member">Member</option>

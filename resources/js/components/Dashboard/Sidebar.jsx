@@ -15,8 +15,8 @@ function Sidebar() {
 
     return (
         <div className="container-fluid px-5">
-            <div className="card w-min bg-base-100 shadow-xl h-screen sticky top-5 mb-5 z-50">
-                <ul className="menu bg-base-100 rounded-box pt-3">
+            <div className="card w-min bg-base-100 shadow-xl sticky top-5 z-50" style={{ height: '96vh' }}>
+                <ul className="menu bg-base-100 rounded-box pt-3 pb-3">
                     <li>
                         <Link
                             // className="tooltip tooltip-right active" 

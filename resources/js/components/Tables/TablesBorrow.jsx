@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-function Book({ title, columns, rows }) {
+import axios from 'axios';
+function Borrows({ title, columns, rows, user, book }) {
     const [currentPage, setCurrentPage] = useState(1);
     const perPage = 5;
     const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / perPage));
@@ -15,13 +16,51 @@ function Book({ title, columns, rows }) {
         setCurrentPage(page);
     }
 
-    const openModal = (index) => {
-        window.selectedRowIndex = index;
-        const modal = document.getElementById('my_modal');
-        if (modal) {
-            modal.showModal();
-        }
-    };
+    const [formDataUpdate, setFormDataUpdate] = useState({
+        user_id: '',
+        book_id: '',
+    });
+
+    const handleChangeUpdate = (e) => {
+        setFormDataUpdate({ ...formDataUpdate, [e.target.name]: e.target.value });
+    }
+
+    const handleDelete = (index) => {
+        axios.delete(`/api/Borrow/${index}`)
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+
+                setNotification('Data berhasil dihapus');
+                setTimeout(() => {
+                    setNotification(null);
+                    window.location.reload();
+                }, 2000);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    const handleUpdate = (index, e) => {
+        e.preventDefault();
+
+        axios.put(`/api/Borrow/${index}`, formDataUpdate)
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+
+                setNotification('Data berhasil diupdate');
+                setTimeout(() => {
+                    setNotification(null);
+                    window.location.reload();
+                }, 2000);
+            })
+            .catch((err) => {
+                console.log(err);
+            }
+            );
+    }
 
     return (
         <div className="card bg-base-100 shadow-xl h-min w-full mr-5 mb-5">
@@ -63,14 +102,14 @@ function Book({ title, columns, rows }) {
                                     <td>
                                         <div className="flex items-center space-x-3">
                                             <div>
-                                                <div className="font-bold">{row.member}</div>
+                                                <div className="font-bold">{row.user}</div>
                                                 <div className="text-sm opacity-50">{row.book}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="text-sm">
                                         <span
-                                            className={`badge badge${ row.status === 'returned' ? '-success' : '-warning' } text-white`} >
+                                            className={`badge badge${row.status === 'returned' ? '-success' : '-warning'} text-white`} >
                                             {row.status}
                                         </span>
                                     </td>
@@ -80,15 +119,55 @@ function Book({ title, columns, rows }) {
                                         Rp. {row.penalty}
                                     </td>
                                     <td>
-                                        <button className="btn btn-info btn-sm text-white" onClick={() => openModal(index)}>Detail</button>
-                                        <dialog id="my_modal" className="modal modal-bottom sm:modal-middle">
-                                            <form method="dialog" className="modal-box">
-                                                <h3 className="font-bold text-lg">{title}</h3>
-                                                <p className="py-4">Press ESC key or click the button below to close</p>
+                                        <button className="btn btn-info btn-sm text-white" onClick={() => window[`my_modal_borrow_${index}`].showModal()}>Detail</button>
+                                        <dialog id={`my_modal_borrow_${index}`} className="modal">
+                                            <form method="dialog" className="modal-box w-11/12 max-w-2xl" onSubmit={(e) => handleUpdate(row.id, e)}>
+                                                <h3 className="font-bold text-lg">{title} Update</h3>
+                                                <label className="label"> User</label>
+                                                <select
+                                                    className="select select-bordered w-full border-gray-400"
+                                                    name="user_id"
+                                                    value={formDataUpdate.user_id}
+                                                    onChange={handleChangeUpdate}>
+                                                    <option value="">Select User</option>
+                                                    {user ? user.map((user) => (
+                                                        <option key={user.id} value={user.id}>{user.name}</option>
+                                                    )) : []}
+                                                </select>
+                                                <label className="label">Book Name</label>
+                                                <select
+                                                    className="select select-bordered w-full border-gray-400"
+                                                    name="book_id"
+                                                    value={formDataUpdate.book_id}
+                                                    onChange={handleChangeUpdate}>
+                                                    <option value="">Select Book</option>
+                                                    {book.books ? book.books.map((book) => (
+                                                        <option key={book.id} value={book.id}>{book.title}</option>
+                                                    )) : []}
+                                                </select>
                                                 <div className="modal-action">
-                                                    {/* if there is a button in form, it will close the modal */}
-                                                    <button className="btn btn-success text-white btn-sm">Create</button>
+                                                    <button className="btn btn-success text-white btn-sm">Update</button>
+                                                    <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delborrow_${row.id}`].showModal()}>Delete</button>
                                                 </div>
+                                                <dialog id={`my_modal_delborrow_${row.id}`} className="modal modal-bottom sm:modal-middle">
+                                                    <form method="dialog" className="modal-box">
+                                                        <h3 className="font-bold text-lg text-center">Apakah anda yakin ingin menghapus data ini?</h3>
+                                                        <div className="divider"></div>
+                                                        <p className="text-center">Data yang sudah dihapus tidak dapat dikembalikan</p>
+                                                        <p className="text-center">Tekan tombol <b>Close</b> untuk membatalkan</p>
+                                                        <br />
+                                                        <h3 className="font-bold text-lg text-center">Data yang akan dihapus</h3>
+                                                        <p className="text-left mt-2">Member: {row.user}</p>
+                                                        <p className="text-left mt-2">Book: {row.book}</p>
+
+                                                        <div className="divider"></div>
+                                                        <div className="modal-action">
+                                                            {/* if there is a button in form, it will close the modal */}
+                                                            <button className="btn btn-sm">Close</button>
+                                                            <button className="btn btn-error btn-sm text-white" onClick={() => handleDelete(row.id)}>Delete</button>
+                                                        </div>
+                                                    </form>
+                                                </dialog>
                                             </form>
                                         </dialog>
                                     </td>
@@ -126,4 +205,4 @@ function Book({ title, columns, rows }) {
     );
 }
 
-export default Book;  
+export default Borrows;  

@@ -153,7 +153,10 @@ export default function Authenticated({ user }) {
                   'Action']}
                 rows={BorrowData.borrows ? BorrowData.borrows.map((borrow) => (
                   {
-                    member: borrow.user_id ? userData.map((user) => {
+                    id: borrow.id,
+                    user_id: borrow.user_id,
+                    book_id: borrow.book_id,
+                    user: borrow.user_id ? userData.map((user) => {
                       if (user.id == borrow.user_id) {
                         return user.name;
                       }
@@ -170,6 +173,8 @@ export default function Authenticated({ user }) {
                     action: 'action'
                   })
                 ) : []}
+                book={dataBook}
+                user={userData}
               />
             </div>
           </div>

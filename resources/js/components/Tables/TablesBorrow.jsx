@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 function Borrows({ title, columns, rows, user, book }) {
+    const [notification, setNotification] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const perPage = 5;
     const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / perPage));

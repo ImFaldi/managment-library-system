@@ -52,6 +52,8 @@ export default function Authenticated({ user }) {
                     <div className="grid mt-2 pr-5">
                         <Stat 
                             totalUser={dataUser.length}
+                            totalBorrow={dataBorrow.length}
+                            totalBook={dataBook.length}
                     /></div>
                     <div className="flex">
                         <div className="mt-5 pr-5 w-full">

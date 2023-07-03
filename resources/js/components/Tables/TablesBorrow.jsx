@@ -20,6 +20,10 @@ function Borrows({ title, columns, rows, user, book }) {
     const [formDataUpdate, setFormDataUpdate] = useState({
         user_id: '',
         book_id: '',
+        status: '',
+        penalty: '',
+        borrow_date: '',
+        return_date: ''
     });
 
     const handleChangeUpdate = (e) => {
@@ -146,6 +150,30 @@ function Borrows({ title, columns, rows, user, book }) {
                                                         <option key={book.id} value={book.id}>{book.title}</option>
                                                     )) : []}
                                                 </select>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <input type="checkbox" className="checkbox checkbox" name="status" value={row.status} onChange={handleChangeUpdate} />
+                                                        <span className="label-text w-full ml-3">Status</span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <input type="checkbox" className="checkbox checkbox" name="penalty" value={row.penalty} onChange={handleChangeUpdate} />
+                                                        <span className="label-text w-full ml-3">Penalty</span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <input type="checkbox" className="checkbox checkbox" name="borrow_date" value={row.borrow_date} onChange={handleChangeUpdate} />
+                                                        <span className="label-text w-full ml-3">Borrow Date</span>
+                                                    </label>
+                                                </div>
+                                                <div className="form-control">
+                                                    <label className="label">
+                                                        <input type="checkbox" className="checkbox checkbox" name="return_date" value={row.return_date} onChange={handleChangeUpdate} />
+                                                        <span className="label-text w-full ml-3">return Date</span>
+                                                    </label>
+                                                </div>
                                                 <div className="modal-action">
                                                     <button className="btn btn-success text-white btn-sm">Update</button>
                                                     <button className="btn btn-error text-white btn-sm" onClick={() => window[`my_modal_delborrow_${row.id}`].showModal()}>Delete</button>

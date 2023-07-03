@@ -98,6 +98,7 @@ function Borrows({ title, columns, rows, user, book }) {
                         </thead>
                         <tbody>
                             {currentRows.map((row, index) => (
+                                console.log(row),
                                 <tr key={index}>
                                     <th>
                                         <label>
@@ -121,7 +122,7 @@ function Borrows({ title, columns, rows, user, book }) {
                                     <td>{row.borrow}</td>
                                     <td>{row.return}</td>
                                     <td className="text-sm">
-                                        Rp. {row.penalty}
+                                        {row.penalty}
                                     </td>
                                     <td>
                                         <button className="btn btn-info btn-sm text-white" onClick={() => window[`my_modal_borrow_${index}`].showModal()}>Detail</button>
@@ -164,13 +165,13 @@ function Borrows({ title, columns, rows, user, book }) {
                                                 </div>
                                                 <div className="form-control">
                                                     <label className="label">
-                                                        <input type="checkbox" className="checkbox checkbox" name="borrow_date" value={row.borrow_date} onChange={handleChangeUpdate} />
+                                                        <input type="checkbox" className="checkbox checkbox" name="borrow_date" value={row.borrow} onChange={handleChangeUpdate} />
                                                         <span className="label-text w-full ml-3">Borrow Date</span>
                                                     </label>
                                                 </div>
                                                 <div className="form-control">
                                                     <label className="label">
-                                                        <input type="checkbox" className="checkbox checkbox" name="return_date" value={row.return_date} onChange={handleChangeUpdate} />
+                                                        <input type="checkbox" className="checkbox checkbox" name="return_date" value={row.return} onChange={handleChangeUpdate} />
                                                         <span className="label-text w-full ml-3">return Date</span>
                                                     </label>
                                                 </div>

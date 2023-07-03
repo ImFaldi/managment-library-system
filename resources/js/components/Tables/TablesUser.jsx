@@ -145,7 +145,7 @@ function Table({ title, columns, rows }) {
                                     </td>
                                     <td className="text-sm">
                                         <span 
-                                        className={`badge badge${row.role === 'admin' ? '-info' : row.role === 'receptionist' ? '-success' : '-warning'} badge-md text-white`}>
+                                        className={`badge badge-${row.role === 'admin' ? 'primary' : row.role === 'receptionist' ? 'success' : 'warning'} badge-md text-white`}>
                                             {row.role}</span>
                                     </td>
                                     <td>{row.phone}</td>

@@ -49,7 +49,10 @@ export default function Authenticated({ user }) {
                 <Sidebar />
                 <div className="flex flex-col w-full border-opacity-50">
                     <div className="grid mt-2 pr-5"><Navbar user={user} /></div>
-                    <div className="grid mt-2 pr-5"><Stat /></div>
+                    <div className="grid mt-2 pr-5">
+                        <Stat 
+                            totalUser={dataUser.length}
+                    /></div>
                     <div className="flex">
                         <div className="mt-5 pr-5 w-full">
                             <Table
